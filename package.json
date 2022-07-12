@@ -1,0 +1,46 @@
+{
+  "name": "RemoteCodeEditor",
+  "version": "1.0.0",
+  "description": "Remote Code Editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "compile": "babel server --out-dir dist --delete-dir-on-start --source-maps inline --copy-files",
+    "dev": "nodemon server --exec babel-node --config .nodemonrc.json | pino-pretty",
+    "dev:debug": "nodemon server --exec babel-node --config .nodemonrc.json --inspect | pino-pretty",
+    "test": "mocha --require @babel/register --exit",
+    "test:debug": "mocha --require @babel/register --inspect-brk --exit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pino": "^6.7.0",
+    "swagger-express-middleware": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.1",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.12.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6",
+    "pino-pretty": "^4.3.0",
+    "supertest": "^6.0.1"
+  },
+  "author": "Carmine DiMascio <cdimascio@gmail.com> (https://github.com/cdimascio)"
+}

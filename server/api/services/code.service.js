@@ -1,14 +1,30 @@
 import fs from "fs";
 import path from "path";
 import { execFile, spawn, exec } from "child_process";
+import ValidationService from "./validation.service";
 const ROOT_DIR = `${process.cwd()}`;
 const SOURCE_DIR = path.join(ROOT_DIR, "executor");
 const TARGET_DIR = `/app/codes`;
-const IMAGE_NAME = "executor:1.1";
+const IMAGE_NAME = "executor:1.0";
 
 class CodeService {
   async execute(code, input, lang, id) {
     try {
+      !input ? (input = "") : null;
+
+      //validating code
+      const { isValid, message } = await ValidationService.execute(
+        code,
+        input,
+        lang,
+        id
+      );
+      if (!isValid) {
+        throw {
+          message,
+        };
+      }
+
       //writing the code,input  files
       const { file, inputFile } = await this.writeFile(code, lang, input, id);
 
@@ -102,11 +118,9 @@ class CodeService {
   async execChild(runCode, runContainer, id, file, inputFile, lang) {
     return new Promise((resolve, reject) => {
       const execCont = exec(`${runContainer}`);
-      const outputFile = `${id}output.txt`;
       execCont.on("error", (err) => {
         throw { status: "404", message: err };
       });
-
       execCont.stdout.on("data", () => {
         exec(`${runCode}`, async (error, stdout, stderr) => {
           await this.endContainer(id);

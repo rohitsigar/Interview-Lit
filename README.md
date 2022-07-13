@@ -18,17 +18,23 @@ RCE is a Remote Code Executor, as the name suggests Is a Docker-based sandbox en
 
 ## Get Started
 
-Get started developing...
+### Get started developing...
 
 ```shell
-# install deps
-npm install
+# build docker image
+docker-compose build
 
-# run in development mode
-npm run dev
+# create volume
+docker volume create my_vol
+
+# run server in development mode
+docker-compose up server
 ```
 
-## Install Dependencies
+`
+This will build the required docker image and run the server in a docker container which will be listening at http://localhost:3000.
+
+### For development and adding features
 
 Install all package dependencies (one time operation)
 
@@ -36,21 +42,14 @@ Install all package dependencies (one time operation)
 npm install
 ```
 
-## Run It
-
-#### Run in _development_ mode:
-
 Runs the application is development mode. Should not be used in production
 
 ```shell
 npm run dev
 ```
 
-or debug it
-
-```shell
-npm run dev:debug
-```
+This is for
+development of the application.
 
 #### Run in _production_ mode:
 

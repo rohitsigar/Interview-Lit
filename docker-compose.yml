@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  server:
+    image: server:1.0
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - my_vol:/executor
+  executor:
+    image: executor:1.0
+    build: ./executor
+    volumes:
+      - my_vol:/app/codes
+volumes:
+  my_vol:
+    external: true

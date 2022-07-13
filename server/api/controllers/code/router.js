@@ -1,6 +1,7 @@
-import * as express from 'express';
-import controller from './controller';
+import * as express from "express";
+import controller from "./controller";
 
 export default express
   .Router()
-  .post('/', controller.execute)
+  .get("/", controller.getcwd)
+  .post("/", controller.execute);

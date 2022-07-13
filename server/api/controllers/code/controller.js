@@ -4,7 +4,9 @@ import CodeService from "../../services/code.service";
 export class Controller {
   async execute(req, res) {
     try {
-      const output = await CodeService.execute(req.body.code, req.query.lang);
+      const { code, input } = req.body;
+      const { lang } = req.query;
+      const output = await CodeService.execute(code, input, lang);
       if (output) {
         res.send({
           status: "200",

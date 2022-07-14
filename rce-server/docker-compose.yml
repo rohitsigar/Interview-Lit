@@ -1,10 +1,10 @@
-version: "3.9"
+version: '3'
 services:
   server:
     image: server:1.0
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - my_vol:/executor

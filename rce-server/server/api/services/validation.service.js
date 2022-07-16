@@ -40,7 +40,7 @@ class ValidationService {
           isValid: true
         };
       }
-      case 'cpp': {
+      case 'c++': {
         return {
           isValid: true
         };

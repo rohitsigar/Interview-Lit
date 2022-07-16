@@ -6,7 +6,6 @@ import * as http from 'http';
 import * as os from 'os';
 import l from './logger';
 import oas from './swagger';
-import cors from 'cors';
 
 const app = new Express();
 
@@ -19,13 +18,12 @@ export default class ExpressServer {
     app.use(
       bodyParser.urlencoded({
         extended: true,
-        limit: process.env.REQUEST_LIMIT || '100kb'
+        limit: process.env.REQUEST_LIMIT || '100kb',
       })
     );
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(Express.static(`${root}/public`));
-    app.use(cors());
   }
 
   router(routes) {
@@ -34,7 +32,7 @@ export default class ExpressServer {
   }
 
   listen(port = process.env.PORT) {
-    const welcome = p => () =>
+    const welcome = (p) => () =>
       l.info(
         `up and running in ${
           process.env.NODE_ENV || 'development'
@@ -45,7 +43,7 @@ export default class ExpressServer {
       .then(() => {
         http.createServer(app).listen(port, welcome(port));
       })
-      .catch(e => {
+      .catch((e) => {
         l.error(e);
         // eslint-disable-next-line no-process-exit
         process.exit(1);

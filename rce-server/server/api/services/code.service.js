@@ -7,12 +7,11 @@ const ROOT_DIR = `${process.cwd()}`;
 const SOURCE_DIR = path.join(ROOT_DIR, 'executor');
 const TARGET_DIR = `/app/codes`;
 const IMAGE_NAME = 'executor:1.0';
-//const VOL_NAME = `my_vol`;
-const VOL_NAME = SOURCE_DIR;
+const VOL_NAME = `my_vol`;
+//const VOL_NAME = SOURCE_DIR;
 
 class CodeService {
   async execute(code, input, lang, id) {
-    console.log('code', code);
     try {
       !input ? (input = '') : null;
 
@@ -52,7 +51,6 @@ class CodeService {
       );
 
       if (OUTPUT) {
-        console.log('output', OUTPUT.toString());
         return OUTPUT.toString();
       }
     } catch (error) {
@@ -67,7 +65,7 @@ class CodeService {
         fileName += '.js';
         break;
       }
-      case 'cpp': {
+      case 'c++': {
         fileName += '.cpp';
         break;
       }
@@ -108,7 +106,7 @@ class CodeService {
         command = `cd ${TARGET_DIR} && node ${file} < ${input}`;
         break;
       }
-      case 'cpp': {
+      case 'c++': {
         command = `cd ${TARGET_DIR} && g++ -o ${id} ${file} && ./${id} < ${input}`;
         break;
       }
@@ -167,7 +165,7 @@ class CodeService {
         if (err) throw { message: err };
       });
     }
-    if (lang == 'cpp') {
+    if (lang == 'c++' || lang == 'c') {
       fs.unlinkSync(path.join(SOURCE_DIR, id), err => {
         if (err) throw err;
       });

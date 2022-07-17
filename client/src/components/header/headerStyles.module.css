@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
   height: 8vh;
   /* box-shadow: 16px -20px 19px 16px grey; */
@@ -11,8 +12,15 @@
 
 .brand {
   font-size: 1.4em;
+  display: flex;
+  align-items: center;
   font-weight: 500;
 }
+
+.icon {
+  margin-right: 10px;
+}
+
 .letter {
   font-size: 1.16em;
   font-weight: 700;

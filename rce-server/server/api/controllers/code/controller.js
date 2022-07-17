@@ -35,7 +35,7 @@ export class Controller {
           path.join(process.cwd(), 'executor')
       });
     } catch (error) {
-      res.send({
+      res.status(500).send({
         status: error.status || '500',
         message: error.message || 'Something Went Wrong'
       });

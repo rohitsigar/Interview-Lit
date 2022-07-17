@@ -1,5 +1,6 @@
 class ValidationService {
   async execute(code, input, lang, id) {
+    // console.log("validating");
     switch (lang) {
       case 'javascript': {
         let words = ['require(', 'exports.', 'module.exports'];
@@ -16,7 +17,7 @@ class ValidationService {
         let reg1 = RegExp(
           /\bimport\W+(?:\w+\W+){0,}(?:os|subprocess|importlib)\b/g
         );
-        words = ['open('];
+        let words = ['open('];
 
         if (code.match(reg1)) {
           return {
@@ -40,7 +41,7 @@ class ValidationService {
           isValid: true
         };
       }
-      case 'c++': {
+      case 'cpp': {
         return {
           isValid: true
         };

@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  background-color: gainsboro;
+  font-family: "Montserrat", sans-serif;
+  overflow: hidden;
+}

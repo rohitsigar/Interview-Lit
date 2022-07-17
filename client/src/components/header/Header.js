@@ -1,19 +1,15 @@
-import React from 'react';
-import ToggleTheme from './ToggleTheme';
-import styled from 'styled-components';
+import React from "react";
+import ToggleTheme from "./ToggleTheme";
+import styles from "./headerStyles.module.css";
 
-const HeadeContainer = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
-const Header = props => {
+const Header = (props) => {
   return (
-    <HeadeContainer>
+    <div className={styles.header}>
+      <p className={styles.brand}>
+        Code<span className={styles.letter}>X</span>
+      </p>
       <ToggleTheme {...props} />
-    </HeadeContainer>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { executeCode, setLoadingTrue } from "../../actions/code";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,10 @@ import Split from "react-split";
 import styled from "styled-components";
 import styles from "./style.module.css";
 import "./style.css";
+import { Play } from "react-feather";
+
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://localhost:3000/interview/12345";
 
 const Row = styled.div`
   display: flex;
@@ -35,6 +39,20 @@ const CodeEditor = ({ theme }) => {
   const valueGetter = useRef();
   let output = useSelector((state) => state.code.output);
   let error = useSelector((state) => state.code.error);
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    // (1): Send a ping event with
+    // some data to the server
+    console.log("socket: browser says ping (1)");
+    socket.emit("ping", { some: "data" });
+
+    // (4): When the browser receives a pong event
+    // console log a message and the events data
+    socket.on("pong", function (data) {
+      console.log("socket: browser receives pong (4)", data);
+    });
+  }, []);
 
   const handleEditorDidMount = (_valueGetter) => {
     setIsEditorReady(true);
@@ -75,7 +93,8 @@ const CodeEditor = ({ theme }) => {
                 onClick={SubmitCode}
                 disabled={!isEditorReady}
               >
-                {loading ? "Loading.." : "Submit"}
+                {loading ? "Loading.." : "Run Code"}
+                <Play style={{ paddingLeft: 10, fontSize: "1em" }} />
               </div>
             </div>
             <Editor

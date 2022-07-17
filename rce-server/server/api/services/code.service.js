@@ -38,7 +38,8 @@ class CodeService {
         lang,
         file,
         inputFile,
-        id
+        id,
+        code
       );
 
       //executing the file
@@ -48,7 +49,8 @@ class CodeService {
         id,
         file,
         inputFile,
-        lang
+        lang,
+        code
       );
 
       if (OUTPUT) {
@@ -101,7 +103,7 @@ class CodeService {
     }
   }
 
-  async writeCommand(lang, file, input, id) {
+  async writeCommand(lang, file, input, id, code) {
     let command = '';
     switch (lang) {
       case 'javascript': {
@@ -117,7 +119,10 @@ class CodeService {
         break;
       }
       case 'java': {
-        command = `cd ${TARGET_DIR} && javac ${file} && java Input < ${input}`;
+        let className = await this.extractJavaClassName(code);
+        className = className.split(/\s/).join('');
+        console.log('class ', className);
+        command = `cd ${TARGET_DIR} && javac ${file} && java ${className} < ${input}`;
         break;
       }
       case 'c': {
@@ -138,7 +143,7 @@ class CodeService {
     return { runCode, runContainer };
   }
 
-  async execChild(runCode, runContainer, id, file, inputFile, lang) {
+  async execChild(runCode, runContainer, id, file, inputFile, lang, code) {
     return new Promise((resolve, reject) => {
       const execCont = exec(`${runContainer}`);
       execCont.on('error', err => {
@@ -147,7 +152,7 @@ class CodeService {
       execCont.stdout.on('data', () => {
         exec(`${runCode}`, async (error, stdout, stderr) => {
           await this.endContainer(id);
-          await this.deleteFiles(file, inputFile, lang, id);
+          await this.deleteFiles(file, inputFile, lang, id, code);
           if (stderr) {
             reject({ message: stderr });
           } else {
@@ -158,7 +163,7 @@ class CodeService {
     });
   }
 
-  async deleteFiles(fileName, inputName, lang, id) {
+  async deleteFiles(fileName, inputName, lang, id, code) {
     fs.unlinkSync(path.join(SOURCE_DIR, fileName), err => {
       if (err) throw { message: err };
     });
@@ -174,8 +179,11 @@ class CodeService {
         });
     }
     if (lang == 'java') {
-      if (fs.existsSync(path.join(SOURCE_DIR, 'Input.class')))
-        fs.unlinkSync(path.join(SOURCE_DIR, 'Input.class'), err => {
+      let className = await this.extractJavaClassName(code);
+      className = className.split(/\s/).join('');
+      console.log('delete', className);
+      if (fs.existsSync(path.join(SOURCE_DIR, `${className}.class`)))
+        fs.unlinkSync(path.join(SOURCE_DIR, `${className}.class`), err => {
           if (err) throw err;
         });
     }
@@ -189,6 +197,26 @@ class CodeService {
         console.log(error);
       } else console.log('Container stoped and deleted');
     });
+  }
+
+  async extractJavaClassName(s) {
+    let prefix = 'class';
+    let suffix = '{';
+    let i = s.indexOf(prefix);
+    if (i >= 0) {
+      s = s.substring(i + prefix.length);
+    } else {
+      return '';
+    }
+    if (suffix) {
+      i = s.indexOf(suffix);
+      if (i >= 0) {
+        s = s.substring(0, i);
+      } else {
+        return '';
+      }
+    }
+    return s;
   }
 }
 

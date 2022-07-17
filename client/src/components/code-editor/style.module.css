@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
+
+.sel_lang > select {
+  display: block;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: white;
+  line-height: 1.3;
+  padding: 10px;
+  /* width: 50%; */
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  border: none;
+  background-color: #1e1e1e;
+  transition: 0.3s all;
+}
+
+.sel_lang > select > option {
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: whitesmoke;
+  line-height: 1.3;
+  padding: 15px;
+  display: block;
+  opacity: 0.7;
+  background-color: #313131;
+}
+
+.sel_lang > select > option {
+  opacity: 1;
+}
+.splitHor {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.splitVer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  /* background-color: white; */
+}
+.left {
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+}
+.gutter {
+  background-color: red;
+}
+.runCode {
+  display: flex;
+  background-color: #1e1e1e;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #555555;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.submitButton {
+  background-color: #0fa726;
+  color: white;
+  padding: 5px 20px;
+  margin: 5px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-size: 0.9em;
+  /* width: 80px; */
+  text-align: center;
+  font-weight: 500;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.submitButton:hover {
+  background-color: #14ce2f;
+}
+
+.output {
+  width: 100%;
+  /* flex: 1; */
+  box-sizing: border-box;
+  background-color: white;
+}
+.input {
+  width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.outputHead {
+  display: flex;
+  background: linear-gradient(180deg, whitesmoke, white);
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #555555;
+  /* justify-content: space-between; */
+  color: #1e1e1e;
+  font-size: 1.2em;
+  font-weight: 700;
+  align-items: center;
+  border: 2px solid whitesmoke;
+  height: 60px;
+}

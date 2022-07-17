@@ -1,0 +1,13 @@
+.gutter {
+  /* background-color: #eee; */
+
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transition: 0.3s all;
+}
+
+.gutter:hover {
+  background-color: rgb(24, 24, 24);
+  cursor: col-resize;
+  opacity: 0.7;
+}

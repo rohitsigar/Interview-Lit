@@ -13,7 +13,6 @@ const io = require("socket.io")(http, {
 });
 import cors from "cors";
 
-<<<<<<< HEAD
 app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || "100kb" }));
 app.use(
   bodyParser.urlencoded({
@@ -51,8 +50,3 @@ io.on("connection", (socket) => {
 http.listen(process.env.PORT, () =>
   console.log(`Listening on port ${process.env.PORT}`)
 );
-=======
-// console.log(Server().socketListen());
-
-export default new Server().router(routes).listen(process.env.PORT);
->>>>>>> b022e447a1e67370f6ab6778e16e5f17cc001d88

@@ -49,7 +49,7 @@ const Terminal = () => {
       transition: {
         delay: i * 0.3,
         ease: "easeOut",
-        duration: i * 5,
+        duration: i * 1,
         repeat: "Infinity",
       },
     }),
@@ -64,7 +64,7 @@ const Terminal = () => {
       transition: {
         when: "beforeChildren",
         staggerChildren: 0.3,
-        delay: i * 0.5,
+        delay: i * 0.1,
       },
     }),
     hidden: {

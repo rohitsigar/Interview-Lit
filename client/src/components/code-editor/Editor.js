@@ -10,6 +10,13 @@ import styles from "./styles/editor.module.css";
 import "./styles/style.css";
 import io from "socket.io-client";
 import { Play } from "react-feather";
+import {
+  getDefaultCode,
+  setLanguageLocalStorage,
+  getLanguageLocalStorage,
+  setCodeLocalStorage,
+  getCodeLocalStorage,
+} from "./utils/code-settings";
 
 const ENDPOINT = "http://localhost:3000";
 
@@ -35,7 +42,7 @@ const CodeEditor = ({ theme }) => {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [language, setLanguage] = useState("c");
+  const [language, setLanguage] = useState("java");
   const [input, setInput] = useState("");
   // const [output, setOutput] = useState("");
   const [code, setCode] = useState("");
@@ -47,6 +54,16 @@ const CodeEditor = ({ theme }) => {
 
   useEffect(() => {
     window.addEventListener("resize", updateWindowDimensions);
+
+    if (getLanguageLocalStorage()) {
+      setLanguage(getLanguageLocalStorage());
+      if (getCodeLocalStorage()) {
+        setCode(getCodeLocalStorage());
+      } else setCode(getDefaultCode(getLanguageLocalStorage()));
+    } else {
+      setCode(getDefaultCode(language));
+    }
+
     return () => {
       window.removeEventListener("resize", updateWindowDimensions);
     };
@@ -84,9 +101,11 @@ const CodeEditor = ({ theme }) => {
     // socket.emit("getOutput", output);
     // setOutput(out);
   };
+
   const onChangeCode = (newValue, e) => {
     // console.log("onChange" + e);
     socket.emit("getCodeExec", e);
+    setCodeLocalStorage(e);
     setCode(e);
   };
 
@@ -99,6 +118,9 @@ const CodeEditor = ({ theme }) => {
   };
 
   const changeLanguage = (e) => {
+    setLanguageLocalStorage(e.target.value);
+    setCode(getDefaultCode(e.target.value));
+    setCodeLocalStorage(getDefaultCode(e.target.value));
     socket.emit("getLanguage", e.target.value);
     setLanguage(e.target.value);
   };

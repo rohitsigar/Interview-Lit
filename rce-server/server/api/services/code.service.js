@@ -17,7 +17,6 @@ class CodeService {
       !input ? (input = "") : null;
 
       // validating code
-      // await this.validateCode(code, input, lang, id);
       const { isValid, message } = await ValidationService.execute(
         code,
         input,

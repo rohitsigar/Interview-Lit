@@ -1,17 +1,17 @@
-import mongoose from "mongoose";
-import crypto from "crypto";
-const Link = require("../../models/link");
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+const Link = require('../../models/link');
 const BASE_URI = process.env.BASE_URI;
 
 class LinkService {
   async generate(user) {
     try {
-      const uid = crypto.randomBytes(16).toString("hex");
-      const link = `${BASE_URI}/interview/${uid}`;
+      const uid = crypto.randomBytes(16).toString('hex');
+      const link = `${uid}`;
 
       const generatedLink = await Link.create({
         link,
-        interviewer: user._id,
+        interviewer: user._id
       });
 
       if (generatedLink) return generatedLink.link;
@@ -29,12 +29,12 @@ class LinkService {
           if (deleted.ok) return true;
         } else {
           throw {
-            message: "Only interviewer can end the interview!!",
+            message: 'Only interviewer can end the interview!!'
           };
         }
       } else {
         throw {
-          message: "Link not found!",
+          message: 'Link not found!'
         };
       }
     } catch (error) {
@@ -57,12 +57,12 @@ class LinkService {
           }
         } else {
           throw {
-            message: "Only interviewer can add emails!!",
+            message: 'Only interviewer can add emails!!'
           };
         }
       } else {
         throw {
-          message: "Link not found!",
+          message: 'Link not found!'
         };
       }
     } catch (error) {
@@ -85,12 +85,12 @@ class LinkService {
           }
         } else {
           throw {
-            message: "Only interviewer can remove emails!!",
+            message: 'Only interviewer can remove emails!!'
           };
         }
       } else {
         throw {
-          message: "Link not found!",
+          message: 'Link not found!'
         };
       }
     } catch (error) {

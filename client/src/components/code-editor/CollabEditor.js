@@ -8,6 +8,7 @@ import Split from "react-split";
 import styled from "styled-components";
 import styles from "./styles/editor.module.css";
 import "./styles/style.css";
+import io from "socket.io-client";
 import { Play } from "react-feather";
 import {
   getDefaultCode,
@@ -16,6 +17,10 @@ import {
   setCodeLocalStorage,
   getCodeLocalStorage,
 } from "./utils/code-settings";
+
+const ENDPOINT = "http://localhost:3000";
+
+const socket = io(ENDPOINT);
 
 const Row = styled.div`
   display: flex;
@@ -69,6 +74,27 @@ const CodeEditor = ({ theme }) => {
     setWindowHeight(window.innerHeight);
   };
 
+  useEffect(() => {
+    console.log("socket: browser says ping (1)");
+    socket.on("setLanguage", function (data) {
+      // console.log(data);
+      setLanguageLocalStorage(data);
+      setCode(getDefaultCode(data));
+      setCodeLocalStorage(getDefaultCode(data));
+      setLanguage(data);
+    });
+    socket.on("setInput", (data) => {
+      setInput(data);
+    });
+    socket.on("setOutput", (data) => {
+      dispatch(data);
+    });
+    socket.on("setCodeExec", (data) => {
+      setCodeLocalStorage(data);
+      setCode(data);
+    });
+  }, []);
+
   const handleEditorDidMount = (_valueGetter) => {
     setIsEditorReady(true);
     valueGetter.current = _valueGetter;
@@ -76,6 +102,7 @@ const CodeEditor = ({ theme }) => {
 
   const onChangeCode = (newValue, e) => {
     // console.log("onChange" + e);
+    socket.emit("getCodeExec", e);
     setCodeLocalStorage(e);
     setCode(e);
   };
@@ -85,12 +112,14 @@ const CodeEditor = ({ theme }) => {
     const res = await executeCode(code, language, input);
     dispatch(res);
     // getOutput();
+    socket.emit("getOutput", res);
   };
 
   const changeLanguage = (e) => {
     setLanguageLocalStorage(e.target.value);
     setCode(getDefaultCode(e.target.value));
     setCodeLocalStorage(getDefaultCode(e.target.value));
+    socket.emit("getLanguage", e.target.value);
     setLanguage(e.target.value);
   };
   return (

@@ -1,27 +1,19 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from './constants/theme.js';
-import { GlobalStyles } from './constants/global.js';
-import { useDarkMode } from './utils/useDarkMode';
-import Header from './components/header/Header.js';
-import CodeEditor from './components/code-editor/CodeEditor.js';
-import InputOutput from './components/output/InputOutput.js';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CodeEditorIndex from './components/code-editor/CodeEditorIndex';
+import styles from './App.module.css';
+import Home from './components/home/Home';
 
 const App = () => {
-  const [theme, toggleTheme, componentMounted] = useDarkMode();
-
-  const themeMode = theme === 'light' ? lightTheme : darkTheme;
-
-  if (!componentMounted) {
-    return <div />;
-  }
   return (
-    <ThemeProvider theme={themeMode}>
-      <GlobalStyles />
-      <Header theme={theme} toggleTheme={toggleTheme} />
-      <CodeEditor theme={theme} />
-    </ThemeProvider>
+    <Router>
+      <div className={styles.App}>
+        <Switch>
+          <Route exact path='/ide' component={CodeEditorIndex} />
+          <Route exact path='/' component={Home} />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 

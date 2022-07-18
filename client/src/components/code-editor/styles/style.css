@@ -1,0 +1,38 @@
+.gutter {
+  /* background-color: #eee; */
+
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transition: 0.3s all;
+  /* background-color: rgba(128, 128, 128, 0.664); */
+}
+
+.gutter:hover {
+  background-color: rgb(41, 41, 41);
+  /* cursor: col-resize; */
+  opacity: 0.7;
+}
+.gutter.gutter-vertical {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
+}
+
+/* .gutter.gutter-horizontal {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+} */
+
+.editor {
+  /* flex: 1; */
+  /* min-height: 80vh; */
+  height: 80%;
+}
+
+@media only screen and (max-width: 800px) {
+  .gutter.gutter-horizontal {
+    width: 100% !important;
+  }
+}
+@media only screen and (min-width: 800px) {
+  .gutter.gutter-horizontal {
+    height: 100% !important;
+  }
+}

@@ -1,0 +1,22 @@
+.header_container {
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: #363537;
+}
+
+.header_container > p {
+  margin: 0px;
+}
+
+.header_button {
+  border: none;
+  background-color: #0fa726;
+  padding: 10px;
+  width: 100px;
+  border-radius: 50px;
+  color: white;
+  font-size: 17px;
+}

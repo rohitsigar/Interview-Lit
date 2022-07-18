@@ -1,0 +1,12 @@
+.input_field::-webkit-scrollbar {
+  display: none;
+}
+
+.textarea_input {
+  display: flex;
+  outline: none;
+  border-radius: 7px;
+  padding: 5px;
+  box-sizing: border-box;
+  flex: 1;
+}

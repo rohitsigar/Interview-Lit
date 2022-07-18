@@ -1,6 +1,5 @@
-import { combineReducers } from 'redux';
-import code from './code';
-import user from './user';
-import interviewLink from './interview-link';
+import { combineReducers } from "redux";
+import code from "./code";
+import user from "./user";
 
-export default combineReducers({ code, user, interviewLink });
+export default combineReducers({ code, user });

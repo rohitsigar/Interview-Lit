@@ -10,6 +10,10 @@ import styles from "./styles/editor.module.css";
 import "./styles/style.css";
 import io from "socket.io-client";
 import { Play } from "react-feather";
+import Peer from "peerjs";
+import Draggable from "react-draggable";
+import { BiLinkExternal } from "react-icons/bi";
+import { MdDragHandle, MdAirplay } from "react-icons/md";
 import {
   getDefaultCode,
   setLanguageLocalStorage,
@@ -22,11 +26,10 @@ const ENDPOINT = "http://localhost:3000";
 
 const socket = io(ENDPOINT);
 
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-`;
+const mypeer = new Peer(undefined, {
+  host: "/",
+  port: "3001",
+});
 
 const OutputWindow = styled.div`
   border-radius: 5px;
@@ -34,17 +37,18 @@ const OutputWindow = styled.div`
   box-sizing: border-box;
   overflow: auto;
   flex: 1;
+  max-height : 60vh;
   color: ${(props) => (props.error ? "red" : "black")};
 `;
 
-const CodeEditor = ({ theme }) => {
+const CodeEditor = ({ theme, roomId }) => {
   const loading = useSelector((state) => state.code.isFetching);
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  // const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [language, setLanguage] = useState("java");
   const [input, setInput] = useState("");
-  // const [output, setOutput] = useState("");
+  const [token, setToken] = useState(null);
   const [code, setCode] = useState("");
   const dispatch = useDispatch();
   const valueGetter = useRef();
@@ -69,11 +73,6 @@ const CodeEditor = ({ theme }) => {
     };
   }, []);
 
-  const updateWindowDimensions = () => {
-    setWindowWidth(window.innerWidth);
-    setWindowHeight(window.innerHeight);
-  };
-
   useEffect(() => {
     console.log("socket: browser says ping (1)");
     socket.on("setLanguage", function (data) {
@@ -95,9 +94,84 @@ const CodeEditor = ({ theme }) => {
     });
   }, []);
 
+  useEffect(() => {
+    mypeer.on("open", (vdid) => {
+      console.log("id ", vdid);
+      setToken(vdid);
+      getMedia().then((media) => addVideoStream(media, vdid, true));
+      socket.emit("joinRoom", roomId, vdid);
+    });
+
+    socket.on("userDisconnected", (userToken) => {
+      console.log("userDisconnected ", userToken);
+      const vidElement = document.getElementsByClassName(`${userToken}`);
+      vidElement[0].remove();
+    });
+    socket.on("fromOldUser", (token) => {
+      console.log("fromOldUser ", token);
+      mypeer.on("call", (call) => {
+        console.log("call from peer");
+        getMedia().then((media) => call.answer(media));
+        call.on("stream", (stream) => {
+          console.log("stream ", token);
+          addVideoStream(stream, token, false);
+        });
+      });
+    });
+  }, [roomId]);
+
+  useEffect(() => {
+    if (token) {
+      socket.on("userConnected", (vdid, socketId) => {
+        getMedia().then((media) => {
+          console.log("vdid", vdid);
+          const call = mypeer.call(vdid, media);
+          call.on("stream", (stream) => {
+            addVideoStream(stream, vdid, false);
+          });
+          call.on("close", () => {
+            const video = document.querySelector(`.${vdid}`);
+            video.remove();
+          });
+          console.log("userConnected", vdid);
+          socket.emit("sendNewUser", token, socketId);
+        });
+      });
+    }
+  }, [token]);
+
+  const updateWindowDimensions = () => {
+    setWindowWidth(window.innerWidth);
+    // setWindowHeight(window.innerHeight);
+  };
+
   const handleEditorDidMount = (_valueGetter) => {
     setIsEditorReady(true);
     valueGetter.current = _valueGetter;
+  };
+
+  const addVideoStream = (media, id, isMuted) => {
+    const myVideo = document.createElement("video");
+    const exist = document.getElementsByClassName(`${id}`);
+    console.log(exist.length);
+    if (exist.length) return;
+    myVideo.classList.add(id);
+    const VideoGrid = document.querySelector(".videoBox");
+    myVideo.muted = isMuted;
+    myVideo.controls = true;
+    myVideo.disablePictureInPicture = true;
+    myVideo.srcObject = media;
+    myVideo.addEventListener("loadedmetadata", () => {
+      myVideo.play();
+    });
+    VideoGrid.append(myVideo);
+  };
+
+  const getMedia = async () => {
+    return await navigator.mediaDevices.getUserMedia({
+      video: { frameRate: { ideal: 10, max: 15 } },
+      audio: { noiseSuppression: true, echoCancellation: true },
+    });
   };
 
   const onChangeCode = (newValue, e) => {
@@ -122,6 +196,17 @@ const CodeEditor = ({ theme }) => {
     socket.emit("getLanguage", e.target.value);
     setLanguage(e.target.value);
   };
+
+  const HideVideo = () => {
+    const VidGrid = document.querySelector(".videogrid");
+    VidGrid.classList.add("hide");
+  };
+
+  const ShowVideo = () => {
+    const VidGrid = document.querySelector(".videogrid");
+    VidGrid.classList.remove("hide");
+  };
+
   return (
     <>
       <div className={styles.row}>
@@ -146,14 +231,7 @@ const CodeEditor = ({ theme }) => {
                 <Play style={{ paddingLeft: 10, fontSize: "1em" }} />
               </div>
             </div>
-            {/* <Editor
-                wrapperClassName="editor"
-              language={language}
-              theme={theme === "dark" ? "vs-dark" : "light"}
-              editorDidMount={handleEditorDidMount}
-            /> */}
             <ControlledEditor
-              // wrapperClassName="editor"
               className="editor"
               language={language}
               theme={theme === "dark" ? "vs-dark" : "light"}
@@ -174,7 +252,12 @@ const CodeEditor = ({ theme }) => {
                 className={styles.splitVer}
               >
                 <div className={styles.output}>
-                  <div className={styles.outputHead}>Output</div>
+                  <div className={styles.outputHead}>
+                    <div>Output</div>
+                    <div className={styles.showVid} onClick={() => ShowVideo()}>
+                      <MdAirplay />
+                    </div>
+                  </div>
                   <OutputWindow error={error === "" ? false : true}>
                     {output ? console.log(output) : null}
                     <pre style={{ width: "100%" }}>
@@ -189,6 +272,20 @@ const CodeEditor = ({ theme }) => {
             </div>
           </div>
         </Split>
+        <Draggable handle={".dragHead"} bounds="parent">
+          <div className="videogrid">
+            <div className="dragHead">
+              <MdDragHandle className="dragger" />
+              <BiLinkExternal
+                style={{ margin: 5 }}
+                onClick={() => {
+                  HideVideo();
+                }}
+              />
+            </div>
+            <div className="videoBox"></div>
+          </div>
+        </Draggable>
       </div>
     </>
   );

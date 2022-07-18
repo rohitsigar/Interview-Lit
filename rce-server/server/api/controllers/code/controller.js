@@ -1,6 +1,6 @@
-import CodeService from '../../services/code.service';
-import { v4 as uuidv4 } from 'uuid';
-import path from 'path';
+import CodeService from "../../services/code.service";
+import { v4 as uuidv4 } from "uuid";
+import path from "path";
 
 export class Controller {
   async execute(req, res) {
@@ -11,33 +11,35 @@ export class Controller {
         const output = await CodeService.execute(code, input, lang, uuidv4());
         if (output) {
           res.send({
-            status: '200',
-            message: 'Code Successfully Executed',
-            output
+            status: "200",
+            message: "Code Successfully Executed",
+            output,
           });
         }
       } else {
-        throw { message: 'Invalid Input' };
+        throw { message: "Invalid Input" };
       }
     } catch (error) {
       res.send({
-        status: error.status || '500',
-        message: error.message || 'Something Went Wrong'
+        status: error.status || "500",
+        message: error.message || "Something Went Wrong",
       });
     }
   }
   async getcwd(req, res) {
     try {
+      console.log(path.join(process.cwd(), "executor").replace(" ", "\\ "))
+      console.log(__dirname)
       res.send({
-        status: '200',
+        status: "200",
         message:
-          'Current working directory is : ' +
-          path.join(process.cwd(), 'executor')
+          "Current working directory is : " +
+          path.join(process.cwd(), "executor").replace(" ", "\\ "),
       });
     } catch (error) {
       res.status(500).send({
-        status: error.status || '500',
-        message: error.message || 'Something Went Wrong'
+        status: error.status || "500",
+        message: error.message || "Something Went Wrong",
       });
     }
   }

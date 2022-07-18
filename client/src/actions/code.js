@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { SET_ERROR, SET_OUTPUT, SET_LOADING_TRUE } from './type';
-import { api_route } from './route';
 
 export const executeCode = async (code, lang, input) => {
   try {
@@ -13,7 +12,7 @@ export const executeCode = async (code, lang, input) => {
     const body = JSON.stringify({ code, lang, input });
 
     const res = await axios.post(
-      `${api_route}/code?lang=${lang}`,
+      `http://localhost:3000/code?lang=${lang}`,
       body,
       config
     );

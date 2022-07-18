@@ -12,6 +12,7 @@
   width: 100%;
   flex: 1;
   box-sizing: border-box;
+  position: relative;
 }
 
 .column {
@@ -137,6 +138,7 @@
 
 .outputHead {
   display: flex;
+  justify-content: space-between;
   background: linear-gradient(180deg, whitesmoke, white);
   padding: 10px;
   /* margin-bottom: 20px; */
@@ -149,6 +151,21 @@
   border: 2px solid whitesmoke;
   /* height: 0%; */
   max-height: 3em;
+}
+
+.showVid {
+  border-radius: 50%;
+  padding: 6px;
+  margin-right: 5px;
+  border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s all;
+}
+
+.showVid:hover {
+  background-color: #eeeeee;
 }
 @media screen and (min-width: 800px) {
   .right {

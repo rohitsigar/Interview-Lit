@@ -20,7 +20,7 @@ function useOutsideAlerter(ref, unclick) {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, unclick]);
 }
 
 function Modal({ user, logout, unclick }) {

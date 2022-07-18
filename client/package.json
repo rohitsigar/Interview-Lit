@@ -18,7 +18,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-split": "^2.0.9",
+<<<<<<< HEAD
     "react-typist": "^2.0.5",
+=======
+    "react-splt": "^0.1.4",
+>>>>>>> b022e447a1e67370f6ab6778e16e5f17cc001d88
     "redux": "^4.0.5",
     "socket.io-client": "^3.0.5",
     "styled-components": "^5.2.1",

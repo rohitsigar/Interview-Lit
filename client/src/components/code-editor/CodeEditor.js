@@ -10,6 +10,12 @@ import styles from "./style.module.css";
 import "./style.css";
 import { Play } from "react-feather";
 
+<<<<<<< HEAD
+=======
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://localhost:3000/interview/12345";
+
+>>>>>>> b022e447a1e67370f6ab6778e16e5f17cc001d88
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -36,6 +42,23 @@ const CodeEditor = ({ theme }) => {
   const valueGetter = useRef();
   let output = useSelector((state) => state.code.output);
   let error = useSelector((state) => state.code.error);
+<<<<<<< HEAD
+=======
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    // (1): Send a ping event with
+    // some data to the server
+    console.log("socket: browser says ping (1)");
+    socket.emit("ping", { some: "data" });
+
+    // (4): When the browser receives a pong event
+    // console log a message and the events data
+    socket.on("pong", function (data) {
+      console.log("socket: browser receives pong (4)", data);
+    });
+  }, []);
+>>>>>>> b022e447a1e67370f6ab6778e16e5f17cc001d88
 
   const handleEditorDidMount = (_valueGetter) => {
     setIsEditorReady(true);

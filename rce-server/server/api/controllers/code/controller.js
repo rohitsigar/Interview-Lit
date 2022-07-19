@@ -28,13 +28,13 @@ export class Controller {
   }
   async getcwd(req, res) {
     try {
-      console.log(path.join(process.cwd(), "executor").replace(" ", "\\ "))
-      console.log(__dirname)
+      console.log(path.join(process.cwd(), "executor").replace(" ", "\\ "));
+      console.log(__dirname);
       res.send({
         status: "200",
         message:
           "Current working directory is : " +
-          path.join(process.cwd(), "executor"),
+          path.join(process.cwd(), "executor").replace(" ", "\\ "),
       });
     } catch (error) {
       res.status(500).send({

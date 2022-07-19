@@ -14,7 +14,7 @@ class CodeService {
   async execute(code, input, lang, id) {
     try {
       !input ? (input = "") : null;
-      
+
       // validating code
       const { isValid, message } = await ValidationService.execute(
         code,
@@ -28,7 +28,7 @@ class CodeService {
         };
       }
 
-      //creating the code,input  files
+      //writing the code,input  files
       const { file, inputFile } = await this.writeFile(code, lang, input, id);
 
       //write command
@@ -51,7 +51,7 @@ class CodeService {
         code
       );
 
-      //return output
+      console.log(SOURCE_DIR);
       if (OUTPUT) {
         console.log("output", OUTPUT.toString());
         return OUTPUT.toString();

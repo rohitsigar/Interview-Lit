@@ -7,14 +7,13 @@ import { Link } from "react-router-dom";
 const Header = (props) => {
   return (
     <div className={styles.header}>
-      <p className={styles.brand}>
-        <Code className={styles.icon} />
-        {/* <Link to="/login" style={{ textDecoration: "none", color: "white" }}> */}
-        {/* <div> */}
-        Code<span className={styles.letter}>X</span>
-        {/* </div> */}
-        {/* </Link> */}
-      </p>
+      <Link to="/">
+        <p className={styles.brand}>
+          <Code className={styles.icon} />
+          Code<span className={styles.letter}>X</span>
+        </p>
+      </Link>
+
       <ToggleTheme {...props} />
     </div>
   );

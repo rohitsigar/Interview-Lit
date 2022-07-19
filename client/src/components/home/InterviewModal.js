@@ -58,10 +58,10 @@ const InterviewModal = ({ open, handleClose }) => {
                 <p ref={textareaRef}>{interviewLink()}</p>
               </div>
               <div className={styles.copy} onClick={onCopyLink}>
-                <Copy color={"gainsboro"} />
+                <Copy color={"gainsboro"} className={styles.icon} />
               </div>
               <div className={styles.copy} onClick={onVisitLink}>
-                <CornerDownRight color={"gainsboro"} />
+                <CornerDownRight color={"gainsboro"} className={styles.icon} />
               </div>
             </div>
           )}

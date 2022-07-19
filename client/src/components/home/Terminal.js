@@ -15,21 +15,21 @@ import { alert } from "../../actions/alert";
 import EnterInterviewModal from "./EnterInterviewModal";
 
 const color = [
-  '#ee7752',
-  '#e73c7e',
-  '#23a6d5',
-  '#23d5ab',
-  '#ee7752',
-  '#e7c649',
-  '#92f25c',
-  '#ffffff',
-  '#8249e7',
-  '#49ebc7'
+  "#ee7752",
+  "#e73c7e",
+  "#23a6d5",
+  "#23d5ab",
+  "#ee7752",
+  "#e7c649",
+  "#92f25c",
+  "#ffffff",
+  "#8249e7",
+  "#49ebc7",
 ];
 const width = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
 const Dot = styled.div`
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   height: 15px;
   width: 15px;
   border-radius: 10px;
@@ -67,40 +67,40 @@ const Terminal = () => {
 
   const body = {
     visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: 100 }
+    hidden: { opacity: 0, x: 100 },
   };
 
   const item = {
-    visible: i => ({
+    visible: (i) => ({
       opacity: 1,
       backgroundColor: `${color[Math.floor(Math.random() * 10) + 1]}`,
       transition: {
         delay: i * 0.3,
-        ease: 'easeOut',
+        ease: "easeOut",
         duration: i * 1,
-        repeat: 'Infinity'
-      }
+        repeat: "Infinity",
+      },
     }),
     hidden: {
-      opacity: 0
-    }
+      opacity: 0,
+    },
   };
 
   const button = {
-    visible: i => ({
+    visible: (i) => ({
       scale: 1,
       transition: {
-        when: 'beforeChildren',
+        when: "beforeChildren",
         staggerChildren: 0.3,
-        delay: i * 0.1
-      }
+        delay: i * 0.1,
+      },
     }),
     hidden: {
       scale: 0,
       transition: {
-        when: 'afterChildren'
-      }
-    }
+        when: "afterChildren",
+      },
+    },
   };
 
   return (

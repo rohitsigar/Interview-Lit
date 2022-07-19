@@ -16,13 +16,7 @@ import Draggable from "react-draggable";
 import { BiLinkExternal } from "react-icons/bi";
 import { MdDragHandle, MdAirplay } from "react-icons/md";
 import { toast } from "react-toastify";
-import {
-  getDefaultCode,
-  setLanguageLocalStorage,
-  getLanguageLocalStorage,
-  setCodeLocalStorage,
-  getCodeLocalStorage,
-} from "./utils/code-settings";
+import Loader from "react-loader-spinner";
 
 const ENDPOINT = "http://localhost:3000";
 
@@ -42,7 +36,6 @@ const OutputWindow = styled.div`
 `;
 
 const CodeEditor = ({ theme, roomId }) => {
-  const loading = useSelector((state) => state.code.isFetching);
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   // const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -54,9 +47,13 @@ const CodeEditor = ({ theme, roomId }) => {
   const dispatch = useDispatch();
   const valueGetter = useRef();
   const history = useHistory();
-  let output = useSelector((state) => state.code.output);
-
-  let error = useSelector((state) => state.code.error);
+  const [output, setOutput] = useState("");
+  const [error, setError] = useState("");
+  const [stat, setStats] = useState("");
+  const [loading, setLoading] = useState(false);
+  // let output = useSelector((state) => state.code.output);
+  // const loading = useSelector((state) => state.code.isFetching);
+  // let error = useSelector((state) => state.code.error);
 
   useEffect(() => {
     if (!token) {
@@ -125,7 +122,7 @@ const CodeEditor = ({ theme, roomId }) => {
         history.push("/");
         return;
       }
-      console.log(user);
+      // console.log(user);
       addVideoStream(media, vdid, true, user.name);
       socket.emit("joinRoom", roomId, vdid, user.name);
     });
@@ -147,6 +144,8 @@ const CodeEditor = ({ theme, roomId }) => {
         });
       });
     });
+
+    return () => {};
   }, []);
 
   const notify = (message) => {
@@ -215,11 +214,20 @@ const CodeEditor = ({ theme, roomId }) => {
   };
 
   const SubmitCode = async () => {
-    dispatch(setLoadingTrue());
-    const res = await executeCode(code, language, input);
-    dispatch(res);
-    // getOutput();
-    socket.emit("getOutput", roomId, res);
+    try {
+      setLoading(true);
+      const res = await executeCode(code, language, input);
+      setOutput((prev) => res.output);
+      setStats(res.misc);
+      setError("");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      setOutput("");
+      setStats("");
+      setError((prevVal) => error);
+    }
+    setLoading(false);
   };
 
   const changeLanguage = (e) => {
@@ -260,8 +268,20 @@ const CodeEditor = ({ theme, roomId }) => {
                 onClick={SubmitCode}
                 disabled={!isEditorReady}
               >
-                {loading ? "Loading.." : "Run Code"}
-                <Play style={{ paddingLeft: 10, fontSize: "1em" }} />
+                {loading ? (
+                  <Loader
+                    type="ThreeDots"
+                    color="#ffffff"
+                    height={20}
+                    width={50}
+                    // timeout={3000} //3 secs
+                  />
+                ) : (
+                  <>
+                    <span>Run Code</span>
+                    <Play style={{ paddingLeft: 10, fontSize: "1em" }} />
+                  </>
+                )}
               </div>
             </div>
             <ControlledEditor
@@ -287,6 +307,9 @@ const CodeEditor = ({ theme, roomId }) => {
                 <div className={styles.output}>
                   <div className={styles.outputHead}>
                     <div>Output</div>
+                    <div style={{ fontSize: "0.75em", fontWeight: 500 }}>
+                      {stat}
+                    </div>
                     <div className={styles.showVid} onClick={() => ShowVideo()}>
                       <MdAirplay />
                     </div>

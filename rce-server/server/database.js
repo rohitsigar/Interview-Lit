@@ -13,9 +13,8 @@ const database = () => {
     mongoose.connection.on("error", (err) => {
       console.log("error in conncting to database", err);
     });
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 

@@ -6,8 +6,6 @@
   align-items: center;
   padding: 20px;
   height: 8vh;
-  /* box-shadow: 16px -20px 19px 16px grey; */
-  /* margin-bottom: 20px; */
 }
 
 .brand {
@@ -25,6 +23,26 @@
   font-size: 1.16em;
   font-weight: 700;
   animation: gradient 6s ease infinite;
+}
+
+.row {
+  display: flex;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  padding: 0px 10px;
+  background-color: gainsboro;
+  border-radius: 10px;
+}
+
+.share > p {
+  color: black;
+  margin: 0px;
+  margin-right: 10px;
+  font-weight: 500;
 }
 
 @keyframes gradient {

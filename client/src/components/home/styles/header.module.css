@@ -3,7 +3,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   background-color: #363537;
 }
 

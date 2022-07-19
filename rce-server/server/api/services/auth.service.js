@@ -1,18 +1,18 @@
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-const User = require("../../models/user");
+import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+const User = require('../../models/user');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 class AuthService {
   async execute(email, name, dp) {
     try {
-      let setUser = "";
+      let setUser = '';
       const user = await User.findOne({ email });
       if (!user) {
         const newUser = await User.create({
           email,
           name,
-          dp,
+          dp
         });
         if (newUser) {
           setUser = newUser;
@@ -27,9 +27,19 @@ class AuthService {
       return token;
     } catch (err) {
       res.send({
-        status: error.status || "500",
-        message: error.message || "Something Went Wrong",
+        status: error.status || '500',
+        message: error.message || 'Something Went Wrong'
       });
+    }
+  }
+
+  async fetchUser(id) {
+    try {
+      const user = await User.findById(id);
+      if (!user) throw { message: 'User not found' };
+      return user;
+    } catch (err) {
+      throw { message: err.message };
     }
   }
 }

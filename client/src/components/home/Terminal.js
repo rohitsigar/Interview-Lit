@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles/terminal.module.css";
 import styled from "styled-components";
-import { Settings, User, UserCheck, Code } from "react-feather";
+import { Settings, UserCheck, Code } from "react-feather";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 
@@ -25,14 +25,6 @@ const Dot = styled.div`
   width: 15px;
   border-radius: 10px;
   margin-right: 5px;
-`;
-
-const Body = styled.div`
-  height: 15px;
-  width: ${(props) => props.width}%;
-  margin-left: 10px;
-  background-color: ${(props) => props.color};
-  border-radius: 15px;
 `;
 
 const Terminal = () => {

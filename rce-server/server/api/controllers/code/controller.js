@@ -28,6 +28,8 @@ export class Controller {
   }
   async getcwd(req, res) {
     try {
+      console.log(path.join(process.cwd(), "executor").replace(" ", "\\ "))
+      console.log(__dirname)
       res.send({
         status: "200",
         message:

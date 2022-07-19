@@ -28,6 +28,7 @@ const OutputWindow = styled.div`
   padding: 20px;
   box-sizing: border-box;
   overflow: auto;
+  max-height : 60vh;
   flex: 1;
   color: ${(props) => (props.error ? "red" : "black")};
 `;

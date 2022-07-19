@@ -14,7 +14,7 @@ const io = require("socket.io")(http, {
 });
 import cors from "cors";
 
-database();
+// database();
 
 app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || "100kb" }));
 app.use(
@@ -48,6 +48,24 @@ io.on("connection", (socket) => {
     // console.log("server " + code);
     io.emit("setCodeExec", code);
   });
+
+  socket.on("joinRoom", (roomId, token) => {
+    socket.join(roomId);
+    socket.to(roomId).broadcast.emit("userConnected", token, socket.id);
+
+    socket.on("disconnect", () => {
+      socket.to(roomId).broadcast.emit("userDisconnected", token);
+    });
+  });
+
+  socket.on("sendNewUser", (token, socketId) => {
+    socket.to(socketId).emit("fromOldUser", token);
+  });
+
+  // socket.on("disconnect",()=>{
+  //   console.log("User disconnected");
+  //   // console.log(socket.adapter.rooms);
+  // })
 });
 
 http.listen(process.env.PORT, () =>

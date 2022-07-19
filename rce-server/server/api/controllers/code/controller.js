@@ -5,7 +5,7 @@ import path from "path";
 export class Controller {
   async execute(req, res) {
     try {
-      const { code, input, id } = req.body;
+      const { code, input } = req.body;
       const { lang } = req.query;
       if (code && lang) {
         const output = await CodeService.execute(code, input, lang, uuidv4());
@@ -17,7 +17,7 @@ export class Controller {
           });
         }
       } else {
-        throw { message: "Invalid Input" };
+        throw { message: "Invalid input" };
       }
     } catch (error) {
       res.send({
@@ -34,7 +34,7 @@ export class Controller {
         status: "200",
         message:
           "Current working directory is : " +
-          path.join(process.cwd(), "executor").replace(" ", "\\ "),
+          path.join(process.cwd(), "executor"),
       });
     } catch (error) {
       res.status(500).send({

@@ -7,7 +7,7 @@ import Header from "./Header.js";
 import Footer from "./Footer.js";
 import Editor from "./CollabEditor";
 
-const CollabEditorIndex = (props) => {
+const CollabEditorIndex = () => {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
 
   const themeMode = theme === "light" ? lightTheme : darkTheme;
@@ -21,7 +21,7 @@ const CollabEditorIndex = (props) => {
       <GlobalStyles />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <Footer />
-      <Editor theme={theme} roomId={props.match.params.id}/>
+      <Editor theme={theme} />
     </ThemeProvider>
   );
 };

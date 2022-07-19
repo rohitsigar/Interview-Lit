@@ -41,7 +41,7 @@ class CodeService {
       );
 
       //executing the file
-      const OUTPUT = await this.execChild(
+      const { stdout, stderr } = await this.execChild(
         runCode,
         runContainer,
         id,
@@ -52,9 +52,9 @@ class CodeService {
       );
 
       console.log(SOURCE_DIR);
-      if (OUTPUT) {
-        console.log("output", OUTPUT.toString());
-        return OUTPUT.toString();
+      if (stderr || stdout) {
+        // console.log("output", stderr, stdout);
+        return { stderr: stderr.toString(), stdout: stdout.toString() };
       }
     } catch (error) {
       throw error;
@@ -106,26 +106,26 @@ class CodeService {
     let command = "";
     switch (lang) {
       case "javascript": {
-        command = `cd "${TARGET_DIR}" && node ${file} < ${input}`;
+        command = `cd "${TARGET_DIR}" && /usr/bin/time -f 'TIME=%es   MEM=%ZKb' node ${file} < ${input}`;
         break;
       }
       case "cpp": {
-        command = `cd "${TARGET_DIR}" && g++ -o ${id} ${file} && ./${id} < ${input}`;
+        command = `cd "${TARGET_DIR}" && g++ -o ${id} ${file} && /usr/bin/time -f 'TIME=%es   MEM=%ZKb' ./${id} < ${input}`;
         break;
       }
       case "python": {
-        command = `cd "${TARGET_DIR}" && python ${file} < ${input}`;
+        command = `cd "${TARGET_DIR}" && /usr/bin/time -f 'TIME=%es   MEM=%ZKb' python ${file} < ${input}`;
         break;
       }
       case "java": {
         let className = await this.extractJavaClassName(code);
         className = className.split(/\s/).join("");
         console.log("class ", className);
-        command = `cd "${TARGET_DIR}" && javac ${file} && java ${className} < ${input}`;
+        command = `cd "${TARGET_DIR}" && javac ${file} && /usr/bin/time -f 'TIME=%es   MEM=%ZKb' java ${className} < ${input}`;
         break;
       }
       case "c": {
-        command = `cd "${TARGET_DIR}" && gcc -o ${id} ${file} && ./${id} < ${input}`;
+        command = `cd "${TARGET_DIR}" && gcc -o ${id} ${file} && /usr/bin/time -f 'TIME=%es   MEM=%ZKb' ./${id} < ${input}`;
         break;
       }
       default: {
@@ -153,11 +153,22 @@ class CodeService {
         exec(`${runCode}`, async (error, stdout, stderr) => {
           await this.endContainer(id);
           await this.deleteFiles(file, inputFile, lang, id, code);
-          if (stderr) {
-            reject({ message: stderr });
-          } else {
-            resolve(stdout);
-          }
+          // console.log("[ ERROR ] ", error);
+          // console.log("[ STD_ERROR ] ", stderr);
+          // console.log("[ STD_OUT ] ", stdout);
+          // if (error) {
+          //   // console.log(error);
+          // }
+          const response = {
+            stderr,
+            stdout,
+          };
+          resolve(response);
+          // if (stderr) {
+          //   reject({ message: stderr });
+          // } else {
+          //   resolve(stdout);
+          // }
         });
       });
     });

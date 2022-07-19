@@ -13,7 +13,8 @@ export class Controller {
           res.send({
             status: "200",
             message: "Code Successfully Executed",
-            output,
+            output: output.stdout,
+            misc: output.stderr,
           });
         }
       } else {

@@ -17,7 +17,7 @@ function BottomFooter() {
           </p>
         </div>
         <div className={styles.dev}>
-          <div className={styles.devHead}>Developpers</div>
+          <div className={styles.devHead}>Developers</div>
           <h4>Tushar Neogi</h4>
           <h4>Shweta Chaurasia</h4>
           <h4>Ritika Tomar</h4>

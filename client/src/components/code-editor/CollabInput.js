@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import styles from "./styles/input.module.css";
+import io from "socket.io-client";
+
+const ENDPOINT = "http://localhost:3000";
+const socket = io(ENDPOINT);
 
 const Div = styled.div`
   height: 100%;
@@ -28,7 +32,7 @@ const TextInput = styled.textarea`
   font-size: 1.2em;
 `;
 
-const Input = ({ input, setInput, theme }) => {
+const Input = ({ input, setInput, roomId, theme }) => {
   // let output = useSelector((state) => state.code.output);
   // let error = useSelector((state) => state.code.error);
 
@@ -42,7 +46,7 @@ const Input = ({ input, setInput, theme }) => {
         value={input}
         onChange={(e) => {
           // console.log(e.target.value);
-          // socket.emit("getInput", roomId, e.target.value);
+          socket.emit("getInput", roomId, e.target.value);
           setInput(e.target.value);
         }}
         className={styles.textarea_input}

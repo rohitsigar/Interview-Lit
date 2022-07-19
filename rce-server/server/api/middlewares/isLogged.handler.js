@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         message: 'User must be logged in!!'
       };
     }
-    //const token = token.replace("Bearer ", "");
+    // const token = token.replace("Bearer ", "");
     jwt.verify(token, JWT_SECRET, (err, payload) => {
       if (err)
         throw {

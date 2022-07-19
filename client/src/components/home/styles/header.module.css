@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: space-between;
   background-color: #363537;
+  align-items: center;
 }
 
 .header_container > p {
@@ -23,7 +24,8 @@
 
 .profileImage {
   border-radius: 50%;
-  background-color: rgba(63, 63, 63, 0);
+  /* background-color: rgba(63, 63, 63, 0); */
+  background: linear-gradient(#23a6d5, #23d5ab);
   width: 3.5em;
   height: 3.5em;
   display: flex;
@@ -31,17 +33,18 @@
   align-items: center;
   margin-right: 15px;
   transition: 0.3s all;
-  box-shadow: 0px 0px 20px -5px rgb(14, 14, 14);
+  box-shadow: 0px 0px 10px -2px #23d5ab;
   position: relative;
+  cursor: pointer;
 }
 
 .profileImage:hover {
-  background-color: rgb(63, 63, 63);
+  box-shadow: 0px 0px 10px 0px #23d5ab;
 }
 
 .image {
-  width: 87%;
-  height: 87%;
+  width: 90%;
+  height: 90%;
   border-radius: 50%;
   object-fit: cover;
 }

@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import styles from './styles/terminal.module.css';
-import styled from 'styled-components';
-import { Settings, User, UserCheck, Code } from 'react-feather';
-import { motion } from 'framer-motion';
-import { useHistory } from 'react-router-dom';
-import InterviewModal from './InterviewModal';
+import React, { useState } from "react";
+import styles from "./styles/terminal.module.css";
+import styled from "styled-components";
+import { Settings, User, UserCheck, Code } from "react-feather";
+import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
+import InterviewModal from "./InterviewModal";
 import {
   generateInterviewLink,
-  setLoadingTrue
-} from '../../actions/interview-link';
-import { useDispatch } from 'react-redux';
-import { isLoggedIn } from '../../utils/isLoggedIn';
-import { alert } from '../../actions/alert';
-import EnterInterviewModal from './EnterInterviewModal';
+  setLoadingTrue,
+} from "../../actions/interview-link";
+import { useDispatch } from "react-redux";
+import { isLoggedIn } from "../../utils/isLoggedIn";
+import { alert } from "../../actions/alert";
+import EnterInterviewModal from "./EnterInterviewModal";
 
 const color = [
   '#ee7752',
@@ -38,9 +38,9 @@ const Dot = styled.div`
 
 const Body = styled.div`
   height: 15px;
-  width: ${props => props.width}%;
+  width: ${(props) => props.width}%;
   margin-left: 10px;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   border-radius: 15px;
 `;
 
@@ -57,7 +57,7 @@ const Terminal = () => {
       dispatch(res);
       setOpenHostInterviewModal(!openHostInterviewModal);
     } else {
-      alert('error', 'Login is required');
+      alert("error", "Login is required");
     }
   };
 
@@ -108,13 +108,13 @@ const Terminal = () => {
       <motion.div
         className={styles.terminal_container}
         variants={body}
-        initial='hidden'
-        animate='visible'
+        initial="hidden"
+        animate="visible"
       >
         <div className={styles.terminal_header}>
-          <Dot color={'red'} />
-          <Dot color={'yellow'} />
-          <Dot color={'green'} />
+          <Dot color={"red"} />
+          <Dot color={"yellow"} />
+          <Dot color={"green"} />
         </div>
         <div className={styles.terminal_body}>
           {Array.from(Array(10), (e, i) => {
@@ -127,12 +127,14 @@ const Terminal = () => {
                   height: 15,
                   marginLeft: 10,
                   marginRight: 10,
+                  marginTop: 10,
+                  marginBottom: 10,
                   backgroundColor: `${color[random_color]}`,
-                  borderRadius: 15
+                  borderRadius: 15,
                 }}
                 variants={item}
-                initial='hidden'
-                animate='visible'
+                initial="hidden"
+                animate="visible"
                 transition={{ duration: 1, repeat: Infinity }}
                 custom={i}
               >
@@ -150,12 +152,12 @@ const Terminal = () => {
           <motion.button
             className={styles.button1}
             onClick={() => {
-              history.push('/ide');
+              history.push("/ide");
             }}
             whileTap={{ scale: 0.95 }}
             variants={button}
-            animate='visible'
-            initial='hidden'
+            animate="visible"
+            initial="hidden"
             custom={3.5}
           >
             <span></span>
@@ -164,14 +166,14 @@ const Terminal = () => {
             <span></span>
             PLAY WITH IDE
             <motion.div
-              initial={{ rotate: '0deg' }}
-              animate={{ rotate: '360deg' }}
+              initial={{ rotate: "0deg" }}
+              animate={{ rotate: "360deg" }}
               transition={{ duration: 1, repeat: Infinity }}
               style={{
-                display: 'flex',
-                alignItem: 'center',
-                justifyContent: 'center',
-                marginLeft: 10
+                display: "flex",
+                alignItem: "center",
+                justifyContent: "center",
+                marginLeft: 10,
               }}
             >
               <Settings style={{ marginLeft: 0 }} size={30} />
@@ -181,8 +183,8 @@ const Terminal = () => {
             className={styles.button2}
             whileTap={{ scale: 0.95 }}
             variants={button}
-            animate='visible'
-            initial='hidden'
+            animate="visible"
+            initial="hidden"
             custom={4}
             onClick={onHostInterview}
           >
@@ -196,8 +198,8 @@ const Terminal = () => {
             className={styles.button3}
             whileTap={{ scale: 0.95 }}
             variants={button}
-            animate='visible'
-            initial='hidden'
+            animate="visible"
+            initial="hidden"
             custom={4.5}
             onClick={onEnterInterview}
           >

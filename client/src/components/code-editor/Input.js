@@ -32,7 +32,7 @@ const TextInput = styled.textarea`
   font-size: 1.2em;
 `;
 
-const Input = ({ input, setInput, theme }) => {
+const Input = ({ input, setInput, roomId, theme }) => {
   let output = useSelector((state) => state.code.output);
   let error = useSelector((state) => state.code.error);
 
@@ -45,8 +45,8 @@ const Input = ({ input, setInput, theme }) => {
         theme={theme}
         value={input}
         onChange={(e) => {
-          console.log(e.target.value);
-          socket.emit("getInput", e.target.value);
+          // console.log(e.target.value);
+          socket.emit("getInput", roomId, e.target.value);
           setInput(e.target.value);
         }}
         className={styles.textarea_input}

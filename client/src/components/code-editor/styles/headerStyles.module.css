@@ -36,10 +36,27 @@
   padding: 0px 10px;
   background-color: gainsboro;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .share > p {
   color: black;
+  margin: 0px;
+  margin-right: 10px;
+  font-weight: 500;
+}
+
+.end_meet {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  padding: 0px 10px;
+  background-color: #ba1130;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.end_meet > p {
   margin: 0px;
   margin-right: 10px;
   font-weight: 500;

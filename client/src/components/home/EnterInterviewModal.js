@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import styles from '../collab-modal/styles/collabmodal.module.css';
-import { X, Send, Trash } from 'react-feather';
-import { checkAccess } from '../../actions/interview-link';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import styles from "../collab-modal/styles/collabmodal.module.css";
+import { X, Send, Trash } from "react-feather";
+import { checkAccess } from "../../actions/interview-link";
+import { useHistory } from "react-router-dom";
 
 const EnterInterviewModal = ({ open, handleClose, link }) => {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const history = useHistory();
 
-  const onChangeCode = e => setCode(e.target.value);
+  const onChangeCode = (e) => setCode(e.target.value);
 
   const onEnterInterviewRequest = async () => {
     const access = await checkAccess(code);
@@ -20,14 +20,14 @@ const EnterInterviewModal = ({ open, handleClose, link }) => {
 
   return (
     <Modal
-      aria-labelledby='transition-modal-title'
-      aria-describedby='transition-modal-description'
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
       open={open}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 500
+        timeout: 500,
       }}
       className={styles.modal_container}
     >
@@ -39,8 +39,8 @@ const EnterInterviewModal = ({ open, handleClose, link }) => {
           </div>
           <div className={styles.input}>
             <input
-              type='text'
-              placeholder={'Enter Code'}
+              type="text"
+              placeholder={"Enter Code"}
               onChange={onChangeCode}
               value={code}
             />

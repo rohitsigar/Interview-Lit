@@ -17,6 +17,15 @@ const CollabModal = ({ open, handleClose, link }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetchCollaborators();
+  }, [open]);
+
+  const fetchCollaborators = async () => {
+    const res = await fetchCollab(link);
+    dispatch(res);
+  };
+
   const onChangeEmail = e => {
     setEmail(e.target.value);
   };
@@ -61,17 +70,18 @@ const CollabModal = ({ open, handleClose, link }) => {
           </div>
           <div className={styles.collaborator_list}>
             <ul>
-              {interviewee.map(inter => (
-                <li>
-                  {inter}
-                  <Trash
-                    onClick={() => {
-                      onDeleteEmail(inter);
-                    }}
-                    style={{ cursor: 'pointer' }}
-                  />
-                </li>
-              ))}
+              {interviewee &&
+                interviewee.map((inter,index) => (
+                  <li key={index}>
+                    {inter}
+                    <Trash
+                      onClick={() => {
+                        onDeleteEmail(inter);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

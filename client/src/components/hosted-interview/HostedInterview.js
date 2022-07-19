@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { isLoggedIn } from '../../utils/isLoggedIn';
-import { useHistory } from 'react-router-dom';
-import Header from '../home/Header';
-import styles from './styles/hostedinterview.module.css';
-import MeetingDetail from './MeetingDetail';
-import { fetchHostedLinks } from '../../actions/interview-link';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { isLoggedIn } from "../../utils/isLoggedIn";
+import { useHistory } from "react-router-dom";
+import Header from "../home/Header";
+import styles from "./styles/hostedinterview.module.css";
+import MeetingDetail from "./MeetingDetail";
+import { fetchHostedLinks } from "../../actions/interview-link";
+import { useDispatch, useSelector } from "react-redux";
 
 const HostedInterview = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const links = useSelector(state => state.interviewLink.hostedLinks);
+  const links = useSelector((state) => state.interviewLink.hostedLinks);
 
   useEffect(() => {
     if (!isLoggedIn()) {
-      history.push('/');
+      history.push("/");
     } else {
       fetchLinks();
     }
@@ -36,16 +36,16 @@ const HostedInterview = () => {
                 <span className={styles.title}>Code</span>
               </div>
               <div className={styles.rowDate}>
-                <span className={styles.title}>Date</span>
+                <span className={styles.title}>Timestamp</span>
               </div>
             </li>
 
-            {links.map(link => (
-              <MeetingDetail link={link} />
+            {links.map((link, index) => (
+              <MeetingDetail key={index} link={link} />
             ))}
           </ul>
         ) : (
-          <p style={{ alignSelf: 'center' }}>No active interview links</p>
+          <p style={{ alignSelf: "center" }}>No active interview links</p>
         )}
       </div>
     </>

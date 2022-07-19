@@ -1,24 +1,24 @@
-import React, { useEffect, useRef } from 'react';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import styles from './styles/interview.module.css';
-import { X, Copy, Link } from 'react-feather';
-import { generateInterviewLink } from '../../actions/interview-link';
-import Loader from 'react-loader-spinner';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useRef } from "react";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import styles from "./styles/interview.module.css";
+import { X, Copy, Link, CornerDownRight } from "react-feather";
+import { generateInterviewLink } from "../../actions/interview-link";
+import Loader from "react-loader-spinner";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const InterviewModal = ({ open, handleClose }) => {
   const textareaRef = useRef(null);
   const history = useHistory();
-  const link = useSelector(state => state.interviewLink);
+  const link = useSelector((state) => state.interviewLink);
 
   const interviewLink = () => {
     return `${window.location.href}interview/${link.generatedLinkAsInterviewer}`;
   };
 
-  const onCopyLink = e => {
+  const onCopyLink = (e) => {
     navigator.clipboard.writeText(interviewLink());
   };
 
@@ -28,13 +28,13 @@ const InterviewModal = ({ open, handleClose }) => {
 
   return (
     <Modal
-      aria-labelledby='transition-modal-title'
-      aria-describedby='transition-modal-description'
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
       open={open}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 500
+        timeout: 500,
       }}
       className={styles.modal_container}
     >
@@ -46,8 +46,8 @@ const InterviewModal = ({ open, handleClose }) => {
           </div>
           {link.loading ? (
             <Loader
-              type='ThreeDots'
-              color='#00BFFF'
+              type="ThreeDots"
+              color="#00BFFF"
               height={50}
               width={50}
               className={styles.loader}
@@ -58,10 +58,10 @@ const InterviewModal = ({ open, handleClose }) => {
                 <p ref={textareaRef}>{interviewLink()}</p>
               </div>
               <div className={styles.copy} onClick={onCopyLink}>
-                <Copy color={'gainsboro'} />
+                <Copy color={"gainsboro"} />
               </div>
               <div className={styles.copy} onClick={onVisitLink}>
-                <Link color={'gainsboro'} />
+                <CornerDownRight color={"gainsboro"} />
               </div>
             </div>
           )}

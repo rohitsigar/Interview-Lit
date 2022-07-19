@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Footer from '../code-editor/Footer';
-import styles from './styles/header.module.css';
-import { GoogleLogin } from 'react-google-login';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../reducers/actions';
-import { FcGoogle } from 'react-icons/fc';
-import Modal from './Modal';
-import { auth, fetchUser, logoutUser } from '../../actions/user';
-import { Menu } from 'react-feather';
-import MenuDrawer from './Menu';
-import { isLoggedIn } from '../../utils/isLoggedIn';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styles from "./styles/header.module.css";
+import { GoogleLogin } from "react-google-login";
+import { useDispatch, useSelector } from "react-redux";
+import Footer from "../code-editor/Footer";
+import { setUser } from "../../reducers/actions";
+import { FcGoogle } from "react-icons/fc";
+import Modal from "./Modal";
+import { auth, fetchUser, logoutUser } from "../../actions/user";
+import { Menu } from "react-feather";
+import MenuDrawer from "./Menu";
+import { isLoggedIn } from "../../utils/isLoggedIn";
+import { useHistory } from "react-router-dom";
+import { Code } from "react-feather";
 
 const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const [openMenu, setOpenMenu] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  const responseGoogle = res => {
+  const responseGoogle = (res) => {
     if (res.error) {
       console.log(res.error);
       return;
@@ -28,14 +29,14 @@ const Header = () => {
     const user = {
       email: res.profileObj.email,
       name: res.profileObj.name,
-      image: res.profileObj.imageUrl
+      image: res.profileObj.imageUrl,
     };
     authorize(user);
     //dispatch(setUser(user));
   };
 
-  const authorize = async user => {
-    if (localStorage.getItem('codex_token')) {
+  const authorize = async (user) => {
+    if (localStorage.getItem("codex_token")) {
       const res = await fetchUser();
       dispatch(res);
     } else {
@@ -46,7 +47,7 @@ const Header = () => {
 
   const logout = () => {
     dispatch(logoutUser());
-    history.push('/');
+    history.push("/");
     setClicked(false);
   };
 
@@ -66,15 +67,20 @@ const Header = () => {
     <>
       <div className={styles.header_container}>
         {isLoggedIn() && (
-          <Menu size={50} color={'#ffffff'} onClick={toggleMenu} />
+          <Menu size={50} color={"#ffffff"} onClick={toggleMenu} />
         )}
-        {user.name == '' ? (
+        {/* <p className={styles.brand}>
+          <Code className={styles.icon} />
+          Code<span className={styles.letter}>X</span>
+        </p> */}
+
+        {user.name == "" ? (
           <GoogleLogin
-            clientId='356951841595-6v3gpur9sleddtq4l350j62gf8dp8mfj.apps.googleusercontent.com'
-            buttonText='Google Login'
-            render={renderProps => (
+            clientId="356951841595-6v3gpur9sleddtq4l350j62gf8dp8mfj.apps.googleusercontent.com"
+            buttonText="Google Login"
+            render={(renderProps) => (
               <div className={styles.loginButton}>
-                <FcGoogle style={{ marginRight: 10, fontSize: '1.5em' }} />
+                <FcGoogle style={{ marginRight: 10, fontSize: "1.5em" }} />
                 <span
                   className={styles.login}
                   onClick={renderProps.onClick}
@@ -87,7 +93,7 @@ const Header = () => {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             isSignedIn={true}
-            cookiePolicy={'single_host_origin'}
+            cookiePolicy={"single_host_origin"}
           />
         ) : (
           <>

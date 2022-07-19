@@ -32,7 +32,7 @@ export default function(state = initialState, action) {
         hostedLinks: action.payload
       };
     case FETCH_COLLAB_SUCCESS:
-      console.log(payload);
+      // console.log(payload);
       return {
         ...state,
         collaborators: payload

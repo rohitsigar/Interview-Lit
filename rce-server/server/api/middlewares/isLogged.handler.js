@@ -5,14 +5,14 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
   try {
-    const { authorization } = req.headers;
-    if (!authorization) {
+    const token = req.headers.authorization;
+    if (!token) {
       throw {
         status: 401,
         message: "User must be logged in!!",
       };
     }
-    const token = authorization.replace("Bearer ", "");
+    // const token = token.replace("Bearer ", "");
     jwt.verify(token, JWT_SECRET, (err, payload) => {
       if (err)
         throw {

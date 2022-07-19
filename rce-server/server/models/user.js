@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
     },
     dp: {
       type: String,
-      default: "https://www.k2e.com/wp-content/uploads/2018/09/person-icon.png",
+      // default: "https://www.k2e.com/wp-content/uploads/2018/09/person-icon.png",
     },
   },
   { timestamps: true }

@@ -1,4 +1,9 @@
-import { SET_AUTH_SUCCESS, SET_AUTH_FAILURE, LOGOUT } from "../actions/type";
+import {
+  SET_AUTH_SUCCESS,
+  SET_AUTH_FAILURE,
+  LOGOUT,
+  FETCH_USER_SUCCESS
+} from '../actions/type';
 
 const initialState = {
   name: "",
@@ -30,6 +35,13 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        name: action.payload.name,
+        email: action.payload.email,
+        image: action.payload.dp
       };
     case LOGOUT:
     case (SET_AUTH_FAILURE, LOGOUT):

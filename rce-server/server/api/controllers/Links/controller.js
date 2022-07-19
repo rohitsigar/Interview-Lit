@@ -1,4 +1,4 @@
-import LinkService from "../../services/link.service";
+import LinkService from '../../services/link.service';
 
 export class Controller {
   async generateLink(req, res) {
@@ -6,7 +6,7 @@ export class Controller {
       // console.log(req.user);
       if (!req.user) {
         throw {
-          message: "User must be logged in!!",
+          message: 'User must be logged in!!'
         };
       } else {
         const link = await LinkService.generate(req.user);
@@ -14,19 +14,19 @@ export class Controller {
           // console.log(output);
           return res.json({
             status: 200,
-            message: "Successfully generated link!!",
-            link,
+            message: 'Successfully generated link!!',
+            link
           });
         } else {
           throw {
-            message: "Some error occurred. Try again!!",
+            message: 'Some error occurred. Try again!!'
           };
         }
       }
     } catch (error) {
       res.send({
-        status: error.status || "500",
-        message: error.message || "Something Went Wrong",
+        status: error.status || '500',
+        message: error.message || 'Something Went Wrong'
       });
     }
   }
@@ -35,7 +35,7 @@ export class Controller {
     try {
       if (!req.user) {
         throw {
-          message: "User must be logged in!!",
+          message: 'User must be logged in!!'
         };
       } else {
         const { link } = req.body;
@@ -44,14 +44,14 @@ export class Controller {
         if (output) {
           return res.json({
             status: 200,
-            message: "Successfully ended interview!!",
+            message: 'Successfully ended interview!!'
           });
         }
       }
     } catch (error) {
       res.send({
-        status: error.status || "500",
-        message: error.message || "Something Went Wrong",
+        status: error.status || '500',
+        message: error.message || 'Something Went Wrong'
       });
     }
   }
@@ -60,7 +60,7 @@ export class Controller {
     try {
       if (!req.user) {
         throw {
-          message: "User must be logged in!!",
+          message: 'User must be logged in!!'
         };
       } else {
         const { link, email } = req.body;
@@ -68,14 +68,14 @@ export class Controller {
         if (output) {
           return res.json({
             status: 200,
-            message: "Email added successfully!!",
+            message: 'Email added successfully!!'
           });
         }
       }
     } catch (error) {
       res.send({
-        status: error.status || "500",
-        message: error.message || "Something Went Wrong",
+        status: error.status || '500',
+        message: error.message || 'Something Went Wrong'
       });
     }
   }
@@ -84,7 +84,7 @@ export class Controller {
     try {
       if (!req.user) {
         throw {
-          message: "User must be logged in!!",
+          message: 'User must be logged in!!'
         };
       } else {
         const { link, email } = req.body;
@@ -92,14 +92,93 @@ export class Controller {
         if (output) {
           return res.json({
             status: 200,
-            message: "Email removed successfully!!",
+            message: 'Email removed successfully!!'
           });
         }
       }
     } catch (error) {
       res.send({
-        status: error.status || "500",
-        message: error.message || "Something Went Wrong",
+        status: error.status || '500',
+        message: error.message || 'Something Went Wrong'
+      });
+    }
+  }
+
+  async fetchHostedMeetingLinks(req, res) {
+    try {
+      if (!req.user) {
+        throw {
+          message: 'User must be logged in!!'
+        };
+      } else {
+        const links = await LinkService.fetchHostLinks(req.user);
+        if (links) {
+          return res.json({
+            status: 200,
+            message: 'Fetched links successfully',
+            links
+          });
+        }
+      }
+    } catch (error) {
+      res.send({
+        status: error.status || '500',
+        message: error.message || 'Something went wrong'
+      });
+    }
+  }
+
+  async fetchInterviewee(req, res) {
+    try {
+      if (!req.user) {
+        throw {
+          message: 'User must be logged in!!'
+        };
+      } else {
+        const { link } = req.query;
+        const interviewee = await LinkService.fetchInterviewee(link, req.user);
+
+        return res.json({
+          status: 200,
+          message: 'Fetched links successfully',
+          interviewee
+        });
+      }
+    } catch (err) {
+      res.send({
+        status: err.status || '500',
+        message: err.message || 'Something went wrong'
+      });
+    }
+  }
+
+  async checkAccess(req, res) {
+    try {
+      if (!req.user) {
+        throw {
+          message: 'User must be logged in!!'
+        };
+      } else {
+        const { link } = req.query;
+        const access = await LinkService.checkAccess(link, req.user);
+        if (access) {
+          res.send({
+            status: 200,
+            message: 'Valid Access',
+            access
+          });
+        } else {
+          res.send({
+            status: 200,
+            message: 'Invalid Access',
+            access
+          });
+        }
+      }
+    } catch (err) {
+      res.send({
+        status: err.status || '500',
+        message: err.message || 'Something went wrong'
       });
     }
   }

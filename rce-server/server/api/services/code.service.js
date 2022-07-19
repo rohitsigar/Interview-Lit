@@ -12,12 +12,10 @@ const VOL_NAME = SOURCE_DIR;
 
 class CodeService {
   async execute(code, input, lang, id) {
-    //console.log('code', code);
     try {
       !input ? (input = "") : null;
 
       // validating code
-      // await this.validateCode(code, input, lang, id);
       const { isValid, message } = await ValidationService.execute(
         code,
         input,
@@ -30,7 +28,7 @@ class CodeService {
         };
       }
 
-      //writing the code,input  files
+      //creating the code,input  files
       const { file, inputFile } = await this.writeFile(code, lang, input, id);
 
       //write command
@@ -53,6 +51,7 @@ class CodeService {
         code
       );
 
+      //return output
       if (OUTPUT) {
         console.log("output", OUTPUT.toString());
         return OUTPUT.toString();
@@ -164,17 +163,17 @@ class CodeService {
   }
 
   async deleteFiles(fileName, inputName, lang, id, code) {
-    fs.unlinkSync(path.join(SOURCE_DIR, fileName), (err) => {
+    fs.unlink(path.join(SOURCE_DIR, fileName), (err) => {
       if (err) throw { message: err };
     });
     if (inputName) {
-      fs.unlinkSync(path.join(SOURCE_DIR, inputName), (err) => {
+      fs.unlink(path.join(SOURCE_DIR, inputName), (err) => {
         if (err) throw { message: err };
       });
     }
     if (lang == "cpp" || lang == "c") {
       if (fs.existsSync(path.join(SOURCE_DIR, id)))
-        fs.unlinkSync(path.join(SOURCE_DIR, id), (err) => {
+        fs.unlink(path.join(SOURCE_DIR, id), (err) => {
           if (err) throw err;
         });
     }
@@ -183,7 +182,7 @@ class CodeService {
       className = className.split(/\s/).join("");
       console.log("delete", className);
       if (fs.existsSync(path.join(SOURCE_DIR, `${className}.class`)))
-        fs.unlinkSync(path.join(SOURCE_DIR, `${className}.class`), (err) => {
+        fs.unlink(path.join(SOURCE_DIR, `${className}.class`), (err) => {
           if (err) throw err;
         });
     }

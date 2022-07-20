@@ -7,8 +7,8 @@ const ROOT_DIR = `${process.cwd()}`;
 const SOURCE_DIR = path.join(ROOT_DIR, "executor");
 const TARGET_DIR = `/app/codes`;
 const IMAGE_NAME = "executor:1.0";
-const VOL_NAME = `my_vol`;
-// const VOL_NAME = SOURCE_DIR;
+// const VOL_NAME = `my_vol`;
+const VOL_NAME = SOURCE_DIR;
 
 class CodeService {
   async execute(code, input, lang, id) {

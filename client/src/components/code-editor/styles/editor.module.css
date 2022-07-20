@@ -139,16 +139,16 @@
 .outputHead {
   display: flex;
   justify-content: space-between;
-  background: linear-gradient(180deg, whitesmoke, white);
+  /* background: linear-gradient(180deg, whitesmoke, white); */
   padding: 10px;
   /* margin-bottom: 20px; */
   border-bottom: 1px solid #555555;
   /* justify-content: space-between; */
-  color: #1e1e1e;
+  /* color: #1e1e1e; */
   font-size: 1.2em;
   font-weight: 700;
   align-items: center;
-  border: 2px solid whitesmoke;
+  /* border: 2px solid whitesmoke; */
   /* height: 0%; */
   max-height: 3em;
 }

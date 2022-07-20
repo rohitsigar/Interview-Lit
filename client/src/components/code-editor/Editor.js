@@ -169,16 +169,16 @@ const CodeEditor = ({ theme }) => {
                 gutterAlign="center"
                 className={styles.splitVer}
               >
-                <div className={styles.output}>
-                  <div className={styles.outputHead}>
+                <div className={styles.output} style={{ backgroundColor: theme === "dark" ? "#1e1e1e" : "white"}}>
+                  <div className={styles.outputHead} style={{ backgroundColor: theme === "dark" ? "#1e1e1e" : "white", color:theme === "dark" ? "white" : "#1e1e1e"}}>
                     <span>Output</span>
-                    <span style={{ fontSize: "0.75em", fontWeight: 500 }}>
+                    <span style={{ fontSize: "0.75em", fontWeight: 500}}>
                       {stat}
                     </span>
                   </div>
                   <OutputWindow error={error === "" ? false : true}>
                     {output ? console.log(output) : null}
-                    <pre style={{ width: "100%" }}>
+                    <pre style={{ width: "100%",  color: theme === "dark" ? "white" : "#1e1e1e"  }}>
                       {output === "" ? error : output}
                     </pre>
                   </OutputWindow>

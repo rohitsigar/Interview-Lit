@@ -67,7 +67,7 @@ const Header = () => {
     <>
       <div className={styles.header_container}>
         {isLoggedIn() && (
-          <Menu size={50} color={"#ffffff"} onClick={toggleMenu} />
+          <Menu size={50} color={"#4DA9F0"} onClick={toggleMenu} />
         )}
         {/* <p className={styles.brand}>
           <Code className={styles.icon} />

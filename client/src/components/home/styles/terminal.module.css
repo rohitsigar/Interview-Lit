@@ -5,19 +5,19 @@
   /* height: 80%; */
   max-width: 600px;
   /* margin-left: 10%; */
-  background-color: black;
+  background-color: #F7FAFF;
   box-sizing: border-box;
   border-radius: 10px;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  /* box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
     0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-    0 100px 80px rgba(0, 0, 0, 0.12);
+    0 100px 80px rgba(0, 0, 0, 0.12); */
 }
 
 .terminal_header {
   /* width: 100%; */
   height: 25px;
-  background-color: gainsboro;
+  background-color: black;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   display: flex;
@@ -47,27 +47,28 @@
 }
 
 .option_tabs > .button1 {
-  padding: 10px;
+  padding: 20px;
   margin: 10px;
   font-size: 24px;
   width: auto;
   align-self: center;
   background-color: transparent;
   border: none;
-  color: gainsboro;
+  color: black;
   position: relative;
   overflow: hidden;
   outline: none;
   cursor: pointer;
   font-weight: bold;
+  border-radius: 15px;
   letter-spacing: 1px;
   align-self: flex-start;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 3px solid gainsboro;
+  border: 3px solid #F0349C;
   box-sizing: border-box;
-}
+}  
 
 .option_tabs > .button1 > span {
   position: absolute;
@@ -129,14 +130,15 @@
 }
 
 .option_tabs > .button2 {
-  padding: 10px;
+  padding: 20px;
   margin: 10px;
   font-size: 24px;
+  border-radius: 15px;
   width: auto;
   align-self: center;
   background-color: transparent;
   border: none;
-  color: gainsboro;
+  color: black;
   position: relative;
   overflow: hidden;
   outline: none;
@@ -145,7 +147,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 3px solid gainsboro;
+  border: 3px solid #93F0C7;
   box-sizing: border-box;
 }
 
@@ -209,14 +211,15 @@
 }
 
 .option_tabs > .button3 {
-  padding: 10px;
+  padding: 20px;
   margin: 10px;
   font-size: 24px;
   width: auto;
+  border-radius: 15px;
   align-self: center;
   background-color: transparent;
   border: none;
-  color: gainsboro;
+  color: black;
   position: relative;
   overflow: hidden;
   outline: none;
@@ -226,7 +229,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 3px solid gainsboro;
+  border: 3px solid #9F96F0;
   box-sizing: border-box;
 }
 

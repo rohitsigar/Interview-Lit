@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  background-color: #363537;
+  background-color: "#F7FAFF";
+;
   height: 100%;
 }
 
@@ -14,7 +15,7 @@
 
 .menu_container > ul > li {
   margin: 0px;
-  color: white;
+  color: black;
   font-size: 20px;
   display: flex;
   margin-top: 20px;

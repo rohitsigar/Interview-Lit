@@ -9,7 +9,7 @@ function BottomFooter() {
       <div className={styles.minContainer}>
         <div className={styles.headBox}>
           <p className={styles.brand}>
-            Code<span className={styles.letter}>X</span>
+            Interview<span className={styles.letter}>Lit</span>
           </p>
           <p className={styles.slogan}>
             You do the coding, we will take care of the rest. Take interview in
@@ -18,13 +18,13 @@ function BottomFooter() {
         </div>
         <div className={styles.dev}>
           <div className={styles.devHead}>Developers</div>
-          <h4>Tushar Neogi</h4>
-          <h4>Shweta Chaurasia</h4>
-          <h4>Ritika Tomar</h4>
+          <h4>Abhishek Singh Chauhan</h4>
+          <h4>Rohit Sigar</h4>
+          <h4>Shikhar Shukla</h4>
         </div>
         <div className={styles.break}></div>
       </div>
-      <div className={styles.icons}>
+      {/* <div className={styles.icons}>
         <div className={styles.icon}>
           <FaGithub></FaGithub>
         </div>
@@ -34,7 +34,7 @@ function BottomFooter() {
         <div className={styles.icon}>
           <FaLinkedinIn></FaLinkedinIn>
         </div>
-      </div>
+      </div> */}
       <p className={styles.copyright}> &copy; CodeX. All Rights reserved.</p>
     </div>
   );

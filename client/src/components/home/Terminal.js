@@ -5,6 +5,8 @@ import { Settings, User, UserCheck, Code } from "react-feather";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import InterviewModal from "./InterviewModal";
+import Lottie from 'react-lottie';
+import animationData from '../../lottie/home_lottie.json';
 import {
   generateInterviewLink,
   setLoadingTrue,
@@ -107,6 +109,15 @@ const Terminal = () => {
     },
   };
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
   return (
     <>
       <motion.div
@@ -115,12 +126,22 @@ const Terminal = () => {
         initial="hidden"
         animate="visible"
       >
-        <div className={styles.terminal_header}>
+        {/* <div className={styles.terminal_header}>
           <Dot color={"red"} />
           <Dot color={"yellow"} />
           <Dot color={"green"} />
-        </div>
-        <div className={styles.terminal_body}>
+        </div> */}
+        
+        <Lottie 
+	    options={defaultOptions}
+        height={400}
+        width={400}
+      />
+
+  
+        
+
+        {/* <div className={styles.terminal_body}>
           {Array.from(Array(10), (e, i) => {
             let random_color = Math.floor(Math.random() * 10) + 1;
             let random_width = Math.floor(Math.random() * 10) + 1;
@@ -142,16 +163,17 @@ const Terminal = () => {
                 transition={{ duration: 1, repeat: Infinity }}
                 custom={i}
               >
-                {/* <Body
-                color={color[random_color - 1]}
-                width={width[random_width - 1]}
-              /> */}
+               
               </motion.div>
             );
           })}
-          {/* <Body color={color[0]} width={width[0]} />
+      
+        </div> */}
+
+        {/* <Body color={color[0]} width={width[0]} />
         <Body color={color[4]} width={width[9]} /> */}
-        </div>
+
+      
         <div className={styles.option_tabs}>
           <motion.button
             className={styles.button1}

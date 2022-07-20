@@ -19,11 +19,12 @@ const Home = () => {
               animate={{ x: 0 }}
               transition={{ duration: 1 }}
             >
-              Code
-              <span>X</span>
+              
+              Interview
+              <span>Lit</span>
             </motion.h1>
             <Typist startDelay={2} avgTypingDelay={120}>
-              Fast, Lighter and Best IDE for you Noobs...
+            Make your Interview Hit with InterviewLit
             </Typist>
 
             {/* <div className={styles.options_tab}>

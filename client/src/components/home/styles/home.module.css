@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: #363537;
-  color: white;
+  background-color: #F7FAFF;
+  color: black  ;
   overflow: auto;
 }
 
@@ -24,7 +24,7 @@
 
 .left > h1 {
   font-size: 100px;
-  color: white;
+  color: black;
   margin: 0px;
   padding-right: 0.5em;
 }

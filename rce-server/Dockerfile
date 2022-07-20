@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:20.04
 RUN apt-get update -y
 RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh 

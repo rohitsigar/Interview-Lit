@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Link2,
   Link,
@@ -6,21 +6,21 @@ import {
   Trash,
   Copy,
   UserPlus,
-  CornerDownRight,
-} from "react-feather";
-import styles from "./styles/hostedinterview.module.css";
-import Moment from "react-moment";
-import { useHistory } from "react-router-dom";
-import { deleteLink, fetchCollab } from "../../actions/interview-link";
-import { useDispatch } from "react-redux";
-import CollabModal from "../collab-modal/CollabModal";
+  CornerDownRight
+} from 'react-feather';
+import styles from './styles/hostedinterview.module.css';
+import Moment from 'react-moment';
+import { useHistory } from 'react-router-dom';
+import { deleteLink, fetchCollab } from '../../actions/interview-link';
+import { useDispatch } from 'react-redux';
+import CollabModal from '../collab-modal/CollabModal';
 
 const MeetingDetail = ({ link, index }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [openCollab, setOpenCollab] = useState(false);
   const interviewLink = () => {
-    return `${window.location.href.replace("hosted-interviews", "")}interview/${
+    return `${window.location.href.replace('hosted-interviews', '')}interview/${
       link.link
     }`;
   };
@@ -51,33 +51,33 @@ const MeetingDetail = ({ link, index }) => {
 
   return (
     <div key={index}>
-      <li className={styles.list} style={{ display: "flex", padding: 10 }}>
+      <li className={styles.list}>
         <div className={styles.rowDate}>
           <span>{link.link}</span>
         </div>
         <div className={styles.rowDate}>
           <span>
-            <Moment date={link.createdAt} format={"DD/MM/YYYY hh:mm:ss"} />
+            <Moment date={link.createdAt} format={'DD/MM/YYYY hh:mm:ss'} />
           </span>
           <div>
             <CornerDownRight
               className={styles.icon}
-              style={{ marginLeft: 20, cursor: "pointer" }}
+              style={{ marginLeft: 20, cursor: 'pointer' }}
               onClick={onLink}
             />
             <Copy
               className={styles.icon}
-              style={{ marginLeft: 20, cursor: "pointer" }}
+              style={{ marginLeft: 20, cursor: 'pointer' }}
               onClick={onCopy}
             />
             <UserPlus
               className={styles.icon}
-              style={{ marginLeft: 20, cursor: "pointer" }}
+              style={{ marginLeft: 20, cursor: 'pointer' }}
               onClick={onCollab}
             />
             <Trash
               className={styles.icon}
-              style={{ marginLeft: 20, cursor: "pointer" }}
+              style={{ marginLeft: 20, cursor: 'pointer' }}
               onClick={onDeleteLink}
             />
           </div>

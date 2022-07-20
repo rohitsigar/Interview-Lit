@@ -5,7 +5,7 @@ import {
   FETCH_USER_SUCCESS,
   LOGOUT
 } from './type';
-import { api_route } from './route';
+import { api_route, hosted_api_route } from './route';
 
 export const auth = async data => {
   try {

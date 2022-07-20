@@ -65,3 +65,33 @@
   cursor: pointer;
   opacity: 0.6;
 }
+
+@media screen and (max-width: 732px) {
+  .modal {
+    width: 95%;
+    box-sizing: border-box;
+  }
+
+  .link_container {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0px;
+  }
+
+  .link {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .link > p {
+    width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .link > p {
+    width: 200px;
+  }
+}

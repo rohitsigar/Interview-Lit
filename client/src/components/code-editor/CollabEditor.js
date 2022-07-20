@@ -96,7 +96,10 @@ const CodeEditor = ({ theme, roomId }) => {
       setInput(data);
     });
     socket.on("setOutput", (data) => {
-      dispatch(data);
+      setOutput(data);
+    });
+    socket.on("setError", (data) => {
+      setError(data);
     });
     socket.on("setCodeExec", (data) => {
       setCode(data);
@@ -217,12 +220,16 @@ const CodeEditor = ({ theme, roomId }) => {
     try {
       setLoading(true);
       const res = await executeCode(code, language, input);
+      socket.emit("getOutput", roomId, res.output);
+      socket.emit("getError", roomId, "");
       setOutput((prev) => res.output);
       setStats(res.misc);
       setError("");
       console.log(res);
     } catch (error) {
       console.log(error);
+      socket.emit("getError", roomId, error);
+      socket.emit("getOutput", roomId, "");
       setOutput("");
       setStats("");
       setError((prevVal) => error);

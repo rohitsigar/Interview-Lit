@@ -1,1 +1,1 @@
-export const api_route = 'http://localhost:3000';
+export const api_route = 'http://codex.centralindia.cloudapp.azure.com:3000';

@@ -67,3 +67,9 @@
   justify-content: space-between;
   margin-top: 5px;
 }
+
+@media screen and (max-width: 436px) {
+  .modal {
+    min-width: auto;
+  }
+}

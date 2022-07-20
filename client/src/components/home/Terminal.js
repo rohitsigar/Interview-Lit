@@ -62,7 +62,11 @@ const Terminal = () => {
   };
 
   const onEnterInterview = () => {
-    setOpenEnterInterview(!openEnterInterview);
+    if (isLoggedIn()) {
+      setOpenEnterInterview(!openEnterInterview);
+    } else {
+      alert("error", "Login is required");
+    }
   };
 
   const body = {

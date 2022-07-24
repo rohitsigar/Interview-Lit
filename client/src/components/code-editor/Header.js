@@ -10,7 +10,7 @@ const Header = (props) => {
       <Link to="/">
         <p className={styles.brand}>
           <Code className={styles.icon} />
-          Code<span className={styles.letter}>X</span>
+          Interview<span className={styles.letter}>Lit</span>
         </p>
       </Link>
 

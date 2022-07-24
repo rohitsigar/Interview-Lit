@@ -2,8 +2,8 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: #363537;
-  color: white;
+  background-color: #F7FAFF;
+  color: black;
   padding: 30px;
   padding-top: 100px;
 }

@@ -29,7 +29,7 @@ const HeaderCollab = props => {
       <div className={styles.header}>
         <p className={styles.brand}>
           <Code className={styles.icon} />
-          Code<span className={styles.letter}>X</span>
+          Interview<span className={styles.letter}>Lit</span>
         </p>
         <div className={styles.row}>
           <div className={styles.end_meet} onClick={onDeleteLink}>

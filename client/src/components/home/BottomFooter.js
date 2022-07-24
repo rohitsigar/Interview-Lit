@@ -11,10 +11,10 @@ function BottomFooter() {
           <p className={styles.brand}>
             Interview<span className={styles.letter}>Lit</span>
           </p>
-          <p className={styles.slogan}>
+          {/* <p className={styles.slogan}>
             You do the coding, we will take care of the rest. Take interview in
             real-time with video interaction.
-          </p>
+          </p> */}
         </div>
         <div className={styles.dev}>
           <div className={styles.devHead}>Developers</div>

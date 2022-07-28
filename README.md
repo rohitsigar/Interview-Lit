@@ -68,6 +68,36 @@ It can also be used as a platform for interviews where the interviewer can creat
 * Redux State Management
 
 
+## Setup steps
+### Clone Repository
+```bash 
+git clone https://github.com/rohitsigar/Interview-Lit.git
+```
+### Install Server Dependencies
+```bash
+cd rce-server
+npm install
+```
+### Install Client Dependencies
+```bash
+cd client
+npm install
+```
+### Build Executor Image
+```bash
+cd rce-server
+cd executor
+docker build -t executor:1.0 .
+```
+### Start Server
+```bash
+npm run dev
+```
+### Start Client
+```bash
+npm start
+```
+
 
 
 

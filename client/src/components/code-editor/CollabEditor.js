@@ -18,7 +18,7 @@ import { MdDragHandle, MdAirplay } from "react-icons/md";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
 
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://shuklajiii.tk:3000";
 
 const socket = io(ENDPOINT);
 

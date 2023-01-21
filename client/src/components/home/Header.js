@@ -76,7 +76,7 @@ const Header = () => {
 
         {user.name == "" ? (
           <GoogleLogin
-            clientId="356951841595-6v3gpur9sleddtq4l350j62gf8dp8mfj.apps.googleusercontent.com"
+            clientId="80150452567-fddbmda1ua6d75emt60i640ijoq8cqkv.apps.googleusercontent.com"
             buttonText="Google Login"
             render={(renderProps) => (
               <div className={styles.loginButton}>

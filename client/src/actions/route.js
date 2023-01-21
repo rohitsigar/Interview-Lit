@@ -1,1 +1,1 @@
-export const api_route = 'http://localhost:3000';
+export const api_route = 'https://shuklajiii.tk:3000';

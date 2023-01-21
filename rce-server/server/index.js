@@ -5,10 +5,15 @@ const Express = require('express');
 const app = new Express();
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-const http = require('http').Server(app);
+import fs from 'fs';
+const http = require('https').Server({
+    key: fs.readFileSync('/etc/letsencrypt/live/shuklajiii.tk/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/shuklajiii.tk/fullchain.pem')
+},app);
+
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://localhost:8000'
+    origin: ['https://shuklajiii.tk', 'http://shuklajiii.tk', 'http://shuklajiii.tk:8000']
     // methods: ["GET", "POST"],
   }
 });

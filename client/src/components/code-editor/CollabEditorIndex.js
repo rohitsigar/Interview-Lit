@@ -11,7 +11,7 @@ import { isLoggedIn } from '../../utils/isLoggedIn';
 import HeaderCollab from './HeaderCollab';
 import { checkAccess } from '../../actions/interview-link';
 // import io from 'socket.io-client';
-// const ENDPOINT = 'http://localhost:3000';
+// const ENDPOINT = 'https://shuklajiii.tk:3000';
 
 // const socket = io(ENDPOINT);
 

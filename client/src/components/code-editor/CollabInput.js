@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import styles from "./styles/input.module.css";
 import io from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://shuklajiii.tk:3000";
 const socket = io(ENDPOINT);
 
 const Div = styled.div`
